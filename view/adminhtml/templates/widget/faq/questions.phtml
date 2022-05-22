@@ -1,0 +1,183 @@
+<?php
+/**
+ * @author    JaJuMa GmbH <info@jajuma.de>
+ * @copyright Copyright (c) 2022-present JaJuMa GmbH <https://www.jajuma.de>. All rights reserved.
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+
+use Jajuma\AdvancedWidget\Block\Widgets\Faq\Questions; 
+/** @var Questions $block * */ 
+
+$questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetContentValues())['questions'] : null;
+?>
+<div class="admin__scope-old">
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Questions')) ?></span></legend>
+        <br/>
+        <div class="widget-layout-updates">
+            <div id="item_container"></div>
+            <div class="actions"><?= $block->getAddItemButtonHtml() ?></div>
+        </div>
+    </fieldset>
+</div>
+<span id="teasersCustomize"></span>
+<script>
+    require([
+        'jquery',
+        'mage/template',
+        'Magento_Ui/js/modal/alert',
+        "prototype",
+        "mage/translate",
+        "mage/adminhtml/events",
+        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+    ], function (jQuery, mageTemplate, alert) {
+
+        //init part
+        jQuery('#teasersCustomize').parents('.admin__field-control').attr('style', "width: calc( (100%) - 60px ) !important;");
+        jQuery('#teasersCustomize').parents('.admin__field-control').prev().remove();
+        jQuery('#teasersCustomize').next().hide();
+        jQuery('#teasersCustomize').prev().prev().hide();
+        jQuery('#widget_options_form .messages').hide();
+        //end init part
+
+        var itemTemplate = '<div class="fieldset-wrapper item_container" id="questions_group_<%- data.id %>">' +
+            '<div class="fieldset-wrapper-title">' +
+            '<label for="parameters[questions][<%- data.id %>][group_name]">Question Group <span class="required">*</span></label>' +
+            '<input name="parameters[questions][<%- data.id %>][group_name]" value="<%- data.group_name %>" id="parameters[questions][<%- data.id %>][group_name]" type="text" class="admin__control-text" style="margin-right: 10px; width: 85%;" />' +
+            '<div class="actions">' +
+            <?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getRemoveLayoutButtonHtml()) ?> +
+                '</div>'+
+            '</div>'+
+            '<div class="fieldset-wrapper-content" style="padding:20px">' +
+            '<div class="question item-group-container-<%- data.id %>" id="question_<%- data.id %>" data-question-id="<%- data.id %>">' +
+            '<table class="data-table data-grid">' +
+            '<thead>' +
+            '<tr>' +
+            '<th class="data-grid-th" style="width: 30%;">Title</th>' +
+            '<th class="data-grid-th">Answer</th>' +
+            '<th class="data-grid-th" style="width: 5%;"></th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody id="data-question-<%- data.id %>">' +
+
+            '</tbody>' +
+            '<tfoot>' +
+            '<tr>' +
+            '<td colspan="3">' +
+            '<div class="actions">' +
+            '<button data-group-id="<%- data.id %>" type="button" class="action-default scalable action-add" onclick="JajumaWidgetFAQInstance.addQuestion({}, <%- data.id %>)">' +
+            '<span>Add New Question</span>' +
+            '</button>' +
+            '</div>'+
+            '</td>' +
+            '</tr>' +
+            '</tfoot>' +
+            '</table>' +
+            '</div>'+
+            '</div>'+
+            '</div>';
+        var questionTemplate= '<tr class="question-item" id="<%- data.question_id %>">' +
+            '<td>' +
+            '<input name="parameters[questions][<%- data.group_id %>][question_lists][<%- data.id %>][question_title]" value="<%- data.question_title %>" type="text" class="admin__control-text" />' +
+            '</td>' +
+            '<td>' +
+            '<textarea rows="2" name="parameters[questions][<%- data.group_id %>][question_lists][<%- data.id %>][question_answer]" id="answer_<%- data.group_id %>_<%- data.id %>" value="" type="text" class="admin__control-text"><%- data.question_answer %></textarea>' +
+            '</td>' +
+            '<td>' +
+            '<button type="button" class="action-default scalable action-delete" onclick="JajumaWidgetFAQInstance.removeQuestionItem(this)">' +
+            '<span>Remove</span>' +
+            '</button>' +
+            '</td>' +
+            '</tr>';
+
+        window.itemTemplate = itemTemplate;
+
+        var JajumaWidgetFAQInstance = {
+            itemTemplate: itemTemplate,
+            itemTemplateContainerId: 'item_container',
+            questionTemplate: questionTemplate,
+            questionTemplateContainerId: 'data-question',
+            count: 0,
+            countQuestions: 0,
+            activeItem: $H({}),
+            selectedItems: {},
+            nullValue: '',
+
+            addItemGroup: function (data) {
+                var self = this;
+                if (this.itemTemplate && (itemTemplateContainer = $(this.itemTemplateContainerId))) {
+                    data.id = this.count++;
+
+                    itemTemplateObj = mageTemplate(this.itemTemplate);
+                    Element.insert(itemTemplateContainer, {
+                        'bottom': itemTemplateObj({
+                            data: data
+                        })
+                    });
+
+                    if (data.question_lists !== undefined) {
+                        jQuery.each(data.question_lists, function (questionId, question) {
+                            self.addQuestion(question, data.id);
+                        });
+                    }
+                }
+            },
+
+            addQuestion: function (data, groupId) {
+                if (this.questionTemplate && (itemQuestionContainer = $(this.questionTemplateContainerId + '-' + groupId))) {
+                    this.countQuestions++;
+                    data.question_id = 'question_item_' + groupId + '_' + (this.countQuestions);
+                    data.group_id = groupId;
+                    data.id = this.countQuestions;
+
+                    if (data.question_answer !== undefined) {
+                        data.question_answer = data.question_answer.replace(/\s/g, '');
+                        data.question_answer = decodeURIComponent(escape(window.atob( data.question_answer )));
+                    }
+
+                    itemQuestionObj = mageTemplate(this.questionTemplate);
+                    Element.insert(itemQuestionContainer, {
+                        'bottom': itemQuestionObj({
+                            data: data
+                        })
+                    });
+
+                    wysiwyg_answer = new wysiwygSetup(
+                        "answer_" + groupId + '_' + (this.countQuestions),
+                        {
+                            "width":"100%",
+                            "height":"100px",
+                            "plugins":[{}],
+                            "tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+                            }
+                        });
+                    wysiwyg_answer.setup("exact");
+                }
+            },
+
+            removeItem: function (element) {
+                container = element.up('div.item_container');
+                if (container) {
+                    container.remove();
+                }
+            },
+            removeQuestionItem: function (element) {
+                container = element.up('tr.question-item');
+                if (container) {
+                    container.remove();
+                }
+            }
+        };
+
+        window.JajumaWidgetFAQInstance = JajumaWidgetFAQInstance;
+
+        jQuery(function(){
+            <?php if ($questionsGroup): ?>
+            <?php $questionsGroup = json_decode($block->getAdvancedWidgetHelper()->decodeWidgetValues($questionsGroup), true) ?>
+            <?php foreach ($questionsGroup as $questionGroup): ?>
+            JajumaWidgetFAQInstance.addItemGroup(<?= /* @noEscape */ json_encode($questionGroup) ?>);
+            <?php endforeach; ?>
+            <?php endif; ?>
+        });
+    });
+</script>

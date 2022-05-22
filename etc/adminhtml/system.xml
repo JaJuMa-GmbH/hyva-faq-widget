@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author    JaJuMa GmbH <info@jajuma.de>
+ * @copyright Copyright (c) 2022-present JaJuMa GmbH <https://www.jajuma.de>. All rights reserved.
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="jajuma" sortOrder="400" class="jajuma-tab" translate="label">
+            <label>JaJuMa</label>
+        </tab>
+        <section id="hyvafaq" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1" translate="label">
+            <label>Hyvä FAQ Widget</label>
+            <tab>jajuma</tab>
+            <resource>Jajuma_HyvaFaq::config_jajuma_hyvafaq</resource>
+            <group id="extension_info" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Extension Information</label>
+                <attribute type="expanded">1</attribute>
+                <field id="extension_info_text" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" type="text">
+                    <frontend_model>Jajuma\HyvaFaq\Block\System\Config\Form\Jajuma\Module</frontend_model>
+                    <comment>
+                        <![CDATA[
+		                <div style="margin:auto;padding:10px;background-color:#f1f1f1;display:inline-block;width:97%;">
+                        <div class="box-img" style="width: 20%;float: left;">
+                            <a href="https://www.jajuma.de/en" title="Hyvä FAQ Widget" target="_blank">
+			            <div class="jajuma-extlogo"></div>
+                            </a>
+                            <strong style="font-size: 10px;">Copyright ©
+                                <script>var today = new Date();
+                                document.write(today.getFullYear());</script>
+                                <a href="https://www.jajuma.de/en" target="_blank">www.jajuma.de</a>
+                            </strong>
+                            <div style="margin-top: 5px;">
+                                <a href="https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes" target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 400 400"
+                                    class="w-10 h-10" width="25" height="25" style="position: relative;top: 5px;">
+                                    <rect width="400" height="400" fill="#F6F7FF"></rect>
+                                    <path d="M222.131 112.458L237.41 66.8783H290.403L275.043 112.458H222.131Z" fill="#14FFAF"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M158.026 174.716C172.966 162.84 191.165
+                                    155.37 211.659 155.37C253.609 155.37 294.409 182.196 294.409
+                                    250.953V336H240.776V250.953C240.776 215.516 223.929 202.107 200.933 202.107C181.969
+                                    202.107 168.181 213.026 160.516 224.517V336H106.692V115.336H74L91.2077
+                                    64H158.026V174.716ZM272.988 109.567L286.407 69.7565H239.485L226.132
+                                    109.567H272.988ZM235.338 64H294.409L277.112 115.336H218.13L235.338 64Z"
+                                    fill="#0A23B9"></path>
+                                    </svg>
+                                    <span style="font-size: 16px;font-weight: 900;"> Theme Compatible</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div style="width: 77%;float: left;padding-left: 3%;">
+                            <div class="name" style="font-size: 16px;">
+                                <b>Hyvä FAQ Widget for Hyvä Theme</b> by <a href="https://www.jajuma.de/en" target="_blank"><b>JaJuMa</b></a>
+				        <div class="jajuma-minilogo"></div>
+                            </div>
+                            <hr>
+                            <br>
+                        <div class="more"><b>More Information About This Extension:</b>
+                            <br>
+                            <div><a href="https://www.jajuma.de/en/jajuma-develop/extensions/hyva-faq-widget-extension-for-hyva-themes"
+				                target="_blank"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+				                viewBox="0 0 576 512" class="w-10 h-10" width="15" height="15"
+				                style="position: relative;top: 2px;">
+				                <!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License -
+				                https://fontawesome.com/license/free (Icons: CC BY 4.0,
+				                Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+				                <path d="M575.8 255.5C575.8 273.5 560.8 287.6 543.8 287.6H511.8L512.5 447.7C512.5
+				                450.5 512.3 453.1 512 455.8V472C512 494.1 494.1 512 472 512H456C454.9 512 453.8
+				                511.1 452.7 511.9C451.3 511.1 449.9 512 448.5 512H392C369.9 512 352 494.1 352
+				                472V384C352 366.3 337.7 352 320 352H256C238.3 352 224 366.3 224 384V472C224 494.1
+				                206.1 512 184 512H128.1C126.6 512 125.1 511.9 123.6 511.8C122.4 511.9 121.2 512 120
+				                512H104C81.91 512 64 494.1 64 472V360C64 359.1 64.03 358.1 64.09 357.2V287.6H32.05C14.02
+				                287.6 0 273.5 0 255.5C0 246.5 3.004 238.5 10.01 231.5L266.4 8.016C273.4 1.002 281.4 0
+				                288.4 0C295.4 0 303.4 2.004 309.5 7.014L564.8 231.5C572.8 238.5 576.9 246.5 575.8
+				                255.5L575.8 255.5z"></path></svg> Website</a> |
+				                <a href="https://hyva.extension.jajuma.de/"
+				                target="_blank"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+				                viewBox="0 0 400 400" class="w-10 h-10" width="20" height="20" style="position:
+				                relative;top: 5px;">    <rect fill="#fff"></rect>    <path d="M222.131 112.458L237.41
+				                66.8783H290.403L275.043 112.458H222.131Z"></path>    <path fill-rule="evenodd"
+				                clip-rule="evenodd" d="M158.026 174.716C172.966 162.84 191.165 155.37 211.659
+				                155.37C253.609 155.37 294.409 182.196 294.409 250.953V336H240.776V250.953C240.776
+				                215.516 223.929 202.107 200.933 202.107C181.969 202.107 168.181 213.026 160.516
+				                224.517V336H106.692V115.336H74L91.2077 64H158.026V174.716ZM272.988 109.567L286.407
+				                69.7565H239.485L226.132 109.567H272.988ZM235.338 64H294.409L277.112
+				                115.336H218.13L235.338 64Z"></path></svg> Hyvä Theme Demo</a>
+				                <div style="float: right;">Installed Version: <b>1.0.0</b></div>
+				             </div>
+                        </div>
+                            <hr>
+                            <br>
+                            <div class="info"><b>Discover More Ideas To Improve Your Store:</b>
+                                <br>
+                                <div class="more-ideas-list">
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/ultimate-image-optimizer-extension-for-magento-2"
+                                       target="_blank">Ultimate Image Optimizer</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/shariff-social-share-buttons-extension-for-magento-2"
+                                       target="_blank">Shariff Social Share Buttons</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/webp-optimized-images-extension-for-magento-2"
+                                       target="_blank">WebP Optimized Images</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/prg-pattern-link-masking-for-magento-2"
+                                       target="_blank">PRG Pattern Link Masking</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/video-widget-gdpr-extension-for-magento-2"
+                                       target="_blank">Video Widget</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/customer-navigation-manager-extension-for-magento-2"
+                                       target="_blank">Customer Navigation Manager</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/page-preload-extension-for-magento-2"
+                                       target="_blank">Page Preload</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/honey-spam-anti-spam-extension-for-magento-2"
+                                       target="_blank">Honey Spam Anti-Spam</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/matomo-analytics-extension-for-magento-2"
+                                       target="_blank">Matomo Analytics</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/customer-registration-reminder-and-cleanup-extension-for-magento-2"
+                                       target="_blank">Customer Registration Reminder & Cleanup</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/category-grid-callouts-extension-for-magento-2"
+                                       target="_blank">Category Grid Callouts</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/customer-satisfaction-feedback-extension-for-magento-2"
+                                       target="_blank">Customer Satisfaction Feedback</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/font-awesome-icons-for-hyva-themes-extension"
+                                       target="_blank"><b>Free:</b> Awesome Hyvä</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/dynamic-shipping-tax-extension-for-magento-2"
+                                       target="_blank"><b>Free:</b> Dynamic Shipping Tax</a>
+                                </div>
+                        </div>
+                            <hr>
+                        </div>
+                        </div>
+                    ]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="general" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="is_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Widget</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

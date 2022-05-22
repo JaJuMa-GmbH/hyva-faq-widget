@@ -1,0 +1,100 @@
+<?php
+/**
+ * @author    JaJuMa GmbH <info@jajuma.de>
+ * @copyright Copyright (c) 2022-present JaJuMa GmbH <https://www.jajuma.de>. All rights reserved.
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsSolid;
+use Jajuma\HyvaFaq\Block\Widgets\Faq;
+
+/** @var ViewModelRegistry $viewModels */
+/** @var Faq $block */
+
+/** @var HeroiconsSolid $heroicons */
+$isEnabled = $block->isEnabled();
+$heroicons = $viewModels->require(HeroiconsSolid::class);
+
+$questionGroups = ($block->getData('questions'))
+    ? json_decode($block->getAdvancedWidgetHelper()->decodeWidgetValues($block->getData('questions')), true)
+    : [];
+$isShowQuestionOnDesktop = $block->getData('is_show_question_on_desktop');
+$identifyNumber = rand(100,1000);
+?>
+
+<?php if ($isEnabled && count($questionGroups)): ?>
+    <?php foreach ($questionGroups as $groupId => $questionGroup): ?>
+        <div class="accordion-widget accordion-item mb-5 border" id="question-groups-<?= $groupId ?>">
+            <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer p-4 font-bold relative <?php if($isShowQuestionOnDesktop): ?>active <?php endif; ?>" >    
+                <strong><?= __($questionGroup['group_name']) ?></strong>
+                <span class="icon transition-all duration-300 transform absolute right-4 top-4">
+                    <?php if($isShowQuestionOnDesktop): ?>
+                        <?= $heroicons->chevronDownHtml(
+                            "w-6 h-6",
+                            25,
+                            25
+                        ) ?>
+                    <?php else: ?>
+                        <?= $heroicons->chevronUpHtml(
+                            "w-6 h-6",
+                            25,
+                            25
+                        ) ?>
+                    <?php endif; ?>
+                </span>
+                
+            </div>
+            <div class="accordion-item-body overflow-hidden transition-all duration-200 max-h-0
+			<?php if($isShowQuestionOnDesktop): ?>lg:max-h-full<?php endif; ?>" style="background: #f5f4f1;" id="content-group-<?= $groupId ?>">
+                <div class="accordion-item-body-content p-4 pb-0">
+                    <?php foreach ($questionGroup['question_lists'] as $questionId => $question): ?>
+                        <div class="accordion-widget-content accordion-item mb-4" id="question-detail-<?= $questionId ?>">
+                            <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer p-4 font-bold relative bg-white">
+                                <strong><?= __($question['question_title']) ?></strong>
+                                <span class="icon transition-all duration-300 transform absolute right-4 top-4">
+                                    <?= $heroicons->chevronUpHtml(
+                                        "w-6 h-6",
+                                        25,
+                                        25
+                                    ) ?>
+                                </span>
+                                
+                            </div>
+                            <div class="accordion-item-body max-h-0 overflow-hidden transition-all duration-200 bg-gray-100" id="content-question-<?= $questionId ?>">
+                                <div class="accordion-item-body-content p-4">
+                                    <?= html_entity_decode($block->processorHtml($question['question_answer'])) ?>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <script>
+
+        document.querySelectorAll(".accordion-item-header-<?= $identifyNumber ?>").forEach(accordionItemHeader => {
+            if(window.innerWidth < 768 && accordionItemHeader.classList.contains("active")) {
+                accordionItemHeader.classList.toggle("active");
+            }
+            accordionItemHeader.addEventListener("click", event => {
+
+                accordionItemHeader.classList.toggle("active");
+                var icon = accordionItemHeader.querySelector('.icon');
+                icon.classList.toggle("rotate-180");
+                const accordionItemBody = accordionItemHeader.nextElementSibling;
+                if(accordionItemHeader.classList.contains("active")) {
+                    accordionItemBody.style.maxHeight = "unset";
+                }
+                else {
+                    accordionItemBody.style.maxHeight = 0;
+                }
+                
+            });
+        });
+    </script>
+<?php endif; ?>

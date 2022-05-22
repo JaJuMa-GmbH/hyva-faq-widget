@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author    JaJuMa GmbH <info@jajuma.de>
+ * @copyright Copyright (c) 2022-present JaJuMa GmbH <https://www.jajuma.de>. All rights reserved.
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<update id="Jajuma::top_level_extensions"
+             module="Jajuma_HyvaFaq"
+             resource="Jajuma_General::jajuma_extensions"
+             sortOrder="65"
+             title="JaJuMa"/>
+
+		<add id="Jajuma_HyvaFaq::jajuma_hyvafaq"
+			 title="Hyvä FAQ Widget"
+			 module="Jajuma_HyvaFaq"
+			 sortOrder="1500"
+			 resource="Jajuma_HyvaFaq::config_jajuma_hyvafaq"
+			 parent="Jajuma::top_level_extensions"/>
+		<add id="Jajuma_HyvaFaq::jajuma_hyvafaq_info"
+			 title="Config + Info"
+			 module="Jajuma_HyvaFaq"
+			 sortOrder="1510"
+			 parent="Jajuma_HyvaFaq::jajuma_hyvafaq"
+			 action="admin/system_config/edit/section/hyvafaq"
+			 resource="Jajuma_HyvaFaq::config_jajuma_hyvafaq"/>
+
+		<update id="Jajuma::extensions"
+             module="Jajuma_HyvaFaq"
+             resource="Jajuma_General::jajuma_extensions"
+             sortOrder="10000"
+             parent="Jajuma::top_level_extensions"
+             title="JaJuMa Extensions"/>
+		<update id="Jajuma_Extensions::extensions_link"
+             title="More JaJuMa Extensions"
+			 module="Jajuma_HyvaFaq"
+             sortOrder="10010"
+             action="hyvafaq/extensions"
+             parent="Jajuma::extensions"
+             resource="Jajuma_General::jajuma_extensions"/>
+
+	</menu>
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author    JaJuMa GmbH <info@jajuma.de>
+ * @copyright Copyright (c) 2022-present JaJuMa GmbH <https://www.jajuma.de>. All rights reserved.
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Widget\Controller\Adminhtml\Widget\BuildWidget">
+        <plugin name="rewrite_widget_build_widget"
+                type="Jajuma\HyvaFaq\Plugin\Widget\Controller\Adminhtml\Widget\BuildWidget"/>
+    </type>
+    <type name="Magento\Widget\Controller\Adminhtml\Widget\LoadOptions">
+        <plugin name="rewrite_widget_load_options"
+                type="Jajuma\HyvaFaq\Plugin\Widget\Controller\Adminhtml\Widget\LoadOptions"/>
+    </type>
+
+    <type name="Magento\Backend\Model\Menu\Item">
+        <plugin name="jajumaExtensionsLink" type="Jajuma\HyvaFaq\Plugin\Backend\Model\Menu\Item\ExtensionsLinkPlugin"/>
+    </type>
+
+    <type name="Magento\Backend\Block\Menu">
+        <plugin name="jajumaExtensionsLinkJs" type="Jajuma\HyvaFaq\Plugin\Backend\Block\Menu\AddLinkJs"/>
+    </type>
+
+</config>

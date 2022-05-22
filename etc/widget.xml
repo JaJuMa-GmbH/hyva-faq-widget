@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author    JaJuMa GmbH <info@jajuma.de>
+ * @copyright Copyright (c) 2022-present JaJuMa GmbH <https://www.jajuma.de>. All rights reserved.
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <!-- FAQ widget -->
+    <widget id="hyva_faq" class="Jajuma\HyvaFaq\Block\Widgets\Faq" placeholder_image="Jajuma_HyvaFaq::images/Hyva-FAQ-Widget-Icon.png">
+        <label translate="true">Hyvä FAQ (by JaJuMa)</label>
+        <description translate="true">FAQ Widget for Hyvä Themes by JaJuMa</description>
+        <parameters>
+            <parameter name="questions" xsi:type="block" visible="true" sort_order="10">
+                <label translate="true">Questions</label>
+                <block class="Jajuma\HyvaFaq\Block\Widgets\Faq\Questions"/>
+            </parameter>
+            <parameter name="is_show_question_on_desktop" xsi:type="select" required="true" sort_order="5">
+                <label>Question Groups open on Desktop View</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
