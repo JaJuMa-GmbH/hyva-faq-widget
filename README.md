@@ -3,7 +3,7 @@
 <img align="right" width="300" height="300" src="https://www.jajuma.de/sites/default/files/ckfinder/userfiles/images/jajuma-develop/hyva-faq-widget-for-hyva-themes/Hyva-FAQ-Widget-Magento-2-large.png">  
 
 [Hyvä FAQ Widget by JaJuMa](https://www.jajuma.de/en/jajuma-develop/extensions/hyva-faq-widget-extension-for-hyva-themes) allows  
-adding and managing FAQs for Magento 2 sites using Hyvä Theme easily.  
+adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes)   easily.  
 
 
 <img align="left" width="80" src="https://www.jajuma.de/sites/default/files/ckfinder/userfiles/images/jajuma-shop/magento-with-hyva/JaJuMa-Hyvanaut-small.png">  
@@ -26,6 +26,8 @@ Compatible with
 
 * [Hyva FAQ Widget Demo on Hyvä Theme](https://hyva.extension.jajuma.de/hyva-faq-widget-example)
 
+<img src="https://www.jajuma.de/sites/default/files/ckfinder/userfiles/images/jajuma-develop/hyva-faq-widget-for-hyva-themes/Hyva-FAQ-Widget-Backend.png">
+<hr>
 <img src="https://www.jajuma.de/sites/default/files/ckfinder/userfiles/images/jajuma-develop/hyva-faq-widget-for-hyva-themes/Hyva-FAQ-Widget-Example.png">
 
 ## Installation
@@ -38,6 +40,14 @@ composer require jajuma/hyva-faq
 Note:  
 The widget can be easily styled and customized.  
 It is automatically included in TailwindCSS purge config (requires Hyvä Theme version >= 1.1.14)
+
+## Platform
+The following versions are supported and tested:
+
+* Magento Community Edition 2.3+ with
+* [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes)  
+
+Other versions are assumed to work.
 
 ## Adding a FAQ section in Magento with Hyvä Themes using JaJuMa "Hyvä FAQ Widget"
 
