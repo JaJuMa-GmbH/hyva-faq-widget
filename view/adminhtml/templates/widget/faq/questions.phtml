@@ -8,7 +8,7 @@
 use Jajuma\AdvancedWidget\Block\Widgets\Faq\Questions; 
 /** @var Questions $block * */ 
 
-$questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetContentValues())['questions'] : null;
+$questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetContentValues())['conditions'] : null;
 ?>
 <div class="admin__scope-old">
     <fieldset class="fieldset">
@@ -29,7 +29,8 @@ $questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetCo
         "prototype",
         "mage/translate",
         "mage/adminhtml/events",
-        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+        "mage/adminhtml/wysiwyg/tiny_mce/setup",
+        "mage/adminhtml/wysiwyg/widget"
     ], function (jQuery, mageTemplate, alert) {
 
         //init part
@@ -42,8 +43,8 @@ $questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetCo
 
         var itemTemplate = '<div class="fieldset-wrapper item_container" id="questions_group_<%- data.id %>">' +
             '<div class="fieldset-wrapper-title">' +
-            '<label for="parameters[questions][<%- data.id %>][group_name]">Question Group <span class="required">*</span></label>' +
-            '<input name="parameters[questions][<%- data.id %>][group_name]" value="<%- data.group_name %>" id="parameters[questions][<%- data.id %>][group_name]" type="text" class="admin__control-text" style="margin-right: 10px; width: 85%;" />' +
+            '<label for="parameters[conditions][<%- data.id %>][group_name]">Question Group <span class="required">*</span></label>' +
+            '<input name="parameters[conditions][<%- data.id %>][group_name]" value="<%- data.group_name %>" id="parameters[conditions][<%- data.id %>][group_name]" type="text" class="admin__control-text" style="margin-right: 10px; width: 85%;" />' +
             '<div class="actions">' +
             <?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getRemoveLayoutButtonHtml()) ?> +
                 '</div>'+
@@ -78,10 +79,10 @@ $questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetCo
             '</div>';
         var questionTemplate= '<tr class="question-item" id="<%- data.question_id %>">' +
             '<td>' +
-            '<input name="parameters[questions][<%- data.group_id %>][question_lists][<%- data.id %>][question_title]" value="<%- data.question_title %>" type="text" class="admin__control-text" />' +
+            '<input name="parameters[conditions][<%- data.group_id %>][question_lists][<%- data.id %>][question_title]" value="<%- data.question_title %>" type="text" class="admin__control-text" />' +
             '</td>' +
             '<td>' +
-            '<textarea rows="2" name="parameters[questions][<%- data.group_id %>][question_lists][<%- data.id %>][question_answer]" id="answer_<%- data.group_id %>_<%- data.id %>" value="" type="text" class="admin__control-text"><%- data.question_answer %></textarea>' +
+            '<textarea rows="2" name="parameters[conditions][<%- data.group_id %>][question_lists][<%- data.id %>][question_answer]" id="answer_<%- data.group_id %>_<%- data.id %>" value="" type="text" class="admin__control-text"><%- data.question_answer %></textarea>' +
             '</td>' +
             '<td>' +
             '<button type="button" class="action-default scalable action-delete" onclick="JajumaWidgetFAQInstance.removeQuestionItem(this)">' +
@@ -130,11 +131,6 @@ $questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetCo
                     data.group_id = groupId;
                     data.id = this.countQuestions;
 
-                    if (data.question_answer !== undefined) {
-                        data.question_answer = data.question_answer.replace(/\s/g, '');
-                        data.question_answer = decodeURIComponent(escape(window.atob( data.question_answer )));
-                    }
-
                     itemQuestionObj = mageTemplate(this.questionTemplate);
                     Element.insert(itemQuestionContainer, {
                         'bottom': itemQuestionObj({
@@ -145,10 +141,11 @@ $questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetCo
                     wysiwyg_answer = new wysiwygSetup(
                         "answer_" + groupId + '_' + (this.countQuestions),
                         {
+                            "enabled":true,
+                            "hidden":false,
                             "width":"100%",
                             "height":"100px",
-                            "plugins":[{}],
-                            "tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+                            "tinymce":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table", "content_css":"",
                             }
                         });
                     wysiwyg_answer.setup("exact");
@@ -173,7 +170,7 @@ $questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetCo
 
         jQuery(function(){
             <?php if ($questionsGroup): ?>
-            <?php $questionsGroup = json_decode($block->getAdvancedWidgetHelper()->decodeWidgetValues($questionsGroup), true) ?>
+            <?php $questionsGroup = $block->getAdvancedWidgetHelper()->decodeWidgetValues($questionsGroup) ?>
             <?php foreach ($questionsGroup as $questionGroup): ?>
             JajumaWidgetFAQInstance.addItemGroup(<?= /* @noEscape */ json_encode($questionGroup) ?>);
             <?php endforeach; ?>

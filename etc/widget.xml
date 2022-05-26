@@ -14,7 +14,7 @@
         <label translate="true">Hyvä FAQ (by JaJuMa)</label>
         <description translate="true">FAQ Widget for Hyvä Themes by JaJuMa</description>
         <parameters>
-            <parameter name="questions" xsi:type="block" visible="true" sort_order="10">
+            <parameter name="conditions" xsi:type="block" sort_order="10" visible="true">
                 <label translate="true">Questions</label>
                 <block class="Jajuma\HyvaFaq\Block\Widgets\Faq\Questions"/>
             </parameter>

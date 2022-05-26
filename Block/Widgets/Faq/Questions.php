@@ -79,14 +79,7 @@ class Questions extends Template
     {
         //add wysiwyg to get MediabrowserUtility
         /** @var Editor $wysiwyg */
-        $wysiwyg = $this->elementFactory->create("editor", ['data' => $element->getData()]);
-        $wysiwyg->setId($element->getId());
-        $wysiwyg->setForm($element->getForm());
-        $wysiwyg->setDisabled(true);
-        $wysiwyg->setWysiwyg(true);
-        $wysiwyg->setConfig($this->wysiwygConfig->getConfig(['add_variables' => false, 'add_widgets' => false]));
-
-        $element->setData('after_element_html', $this->toHtml() . $wysiwyg->toHtml());
+        $element->setData('after_element_html', $this->toHtml());
         return $element;
     }
 

@@ -8,9 +8,9 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magento\Widget\Controller\Adminhtml\Widget\BuildWidget">
-        <plugin name="rewrite_widget_build_widget"
-                type="Jajuma\HyvaFaq\Plugin\Widget\Controller\Adminhtml\Widget\BuildWidget"/>
+    <type name="Magento\Widget\Model\Widget">
+        <plugin name="hyva_wysiwyg_widget_plugin" type="Jajuma\HyvaFaq\Plugin\Widget"
+                sortOrder="1"/>
     </type>
     <type name="Magento\Widget\Controller\Adminhtml\Widget\LoadOptions">
         <plugin name="rewrite_widget_load_options"

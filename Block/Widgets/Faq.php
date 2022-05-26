@@ -12,6 +12,7 @@ use Jajuma\HyvaFaq\Helper\Data;
 use Magento\Cms\Model\Template\FilterProvider;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
+use Magento\Widget\Helper\Conditions;
 
 class Faq extends Template implements BlockInterface
 {
@@ -36,6 +37,11 @@ class Faq extends Template implements BlockInterface
     protected $advancedWidgetHelper;
 
     /**
+     * @var Conditions
+     */
+    private $conditionsHelper;
+
+    /**
      * @param Template\Context $context
      * @param \Magento\Framework\Filter\Template $templateProcessor
      * @param FilterProvider $filterProvider
@@ -47,6 +53,7 @@ class Faq extends Template implements BlockInterface
         \Magento\Framework\Filter\Template $templateProcessor,
         FilterProvider $filterProvider,
         Data $advancedWidgetHelper,
+        Conditions $conditionsHelper,
         array $data = []
     )
     {
@@ -54,6 +61,7 @@ class Faq extends Template implements BlockInterface
         $this->templateProcessor = $templateProcessor;
         $this->filterProvider = $filterProvider;
         $this->advancedWidgetHelper = $advancedWidgetHelper;
+        $this->conditionsHelper = $conditionsHelper;
     }
 
     /**
@@ -66,6 +74,17 @@ class Faq extends Template implements BlockInterface
         return $this->filterProvider->getPageFilter()->filter(
             $this->advancedWidgetHelper->decodeWidgetValues($html)
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function getConditions(): array
+    {
+        $conditions = $this->getData('conditions_encoded')
+            ? $this->getData('conditions_encoded')
+            : $this->getData('conditions');
+        return $conditions ? $this->conditionsHelper->decode($conditions) : [];
     }
 
     /**

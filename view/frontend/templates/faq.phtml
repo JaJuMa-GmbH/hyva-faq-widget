@@ -18,9 +18,7 @@ use Jajuma\HyvaFaq\Block\Widgets\Faq;
 $isEnabled = $block->isEnabled();
 $heroicons = $viewModels->require(HeroiconsSolid::class);
 
-$questionGroups = ($block->getData('questions'))
-    ? json_decode($block->getAdvancedWidgetHelper()->decodeWidgetValues($block->getData('questions')), true)
-    : [];
+$questionGroups = $block->getConditions();
 $isShowQuestionOnDesktop = $block->getData('is_show_question_on_desktop');
 $identifyNumber = rand(100,1000);
 ?>
@@ -65,7 +63,7 @@ $identifyNumber = rand(100,1000);
                             </div>
                             <div class="accordion-item-body max-h-0 overflow-hidden transition-all duration-200 bg-gray-100" id="content-question-<?= $questionId ?>">
                                 <div class="accordion-item-body-content p-4">
-                                    <?= html_entity_decode($block->processorHtml($question['question_answer'])) ?>
+                                    <?= $question['question_answer'] ?>
                                 </div>
                             </div>
                         </div>
