@@ -8,7 +8,17 @@
 use Jajuma\AdvancedWidget\Block\Widgets\Faq\Questions; 
 /** @var Questions $block * */ 
 
-$questionsGroup = count($block->getWidgetContentValues()) ? ($block->getWidgetContentValues())['conditions'] : null;
+$contentValues = $block->getWidgetContentValues();
+if(count($contentValues)) {
+    if (array_key_exists('conditions',$contentValues)) {
+        $questionsGroup = $contentValues['conditions'];
+    } else {
+        $questionsGroup = $block->getConditionsHelper()->decode($contentValues['conditions_encoded']);
+    }
+} else {
+    $questionsGroup = null;
+}
+
 ?>
 <div class="admin__scope-old">
     <fieldset class="fieldset">

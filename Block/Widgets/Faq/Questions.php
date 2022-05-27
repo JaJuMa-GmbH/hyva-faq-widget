@@ -18,6 +18,7 @@ use Magento\Backend\Block\Template;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Registry;
 use Magento\Widget\Model\Widget\Instance;
+use Magento\Widget\Helper\Conditions;
 
 class Questions extends Template
 {
@@ -47,6 +48,11 @@ class Questions extends Template
     protected $coreRegistry;
 
     /**
+     * @var Conditions
+     */
+    private $conditionsHelper;
+
+    /**
      * Items constructor.
      * @param TemplateContext $context
      * @param FormElementFactory $elementFactory
@@ -61,6 +67,7 @@ class Questions extends Template
         Config $wysiwygConfig,
         Data $advancedWidgetHelper,
         Registry $coreRegistry,
+        Conditions $conditionsHelper,
         $data = []
     )
     {
@@ -68,6 +75,7 @@ class Questions extends Template
         $this->wysiwygConfig = $wysiwygConfig;
         $this->advancedWidgetHelper = $advancedWidgetHelper;
         $this->coreRegistry = $coreRegistry;
+        $this->conditionsHelper = $conditionsHelper;
         parent::__construct($context, $data);
     }
 
@@ -181,6 +189,14 @@ class Questions extends Template
     public function getAdvancedWidgetHelper()
     {
         return $this->advancedWidgetHelper;
+    }
+
+    /**
+     * @return Data
+     */
+    public function getConditionsHelper()
+    {
+        return $this->conditionsHelper;
     }
 
 }
