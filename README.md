@@ -96,7 +96,7 @@ The code is licensed under the [MIT License (MIT)](https://github.com/JaJuMa-Gmb
   * :thought_balloon: UX & Marketing:<br>[Customer Satisfaction Feedback for Magento 2](https://www.jajuma.de/en/jajuma-develop/extensions/category-grid-callouts-extension-for-magento-2)<br>
   Collect Valuable Feedback From Your Customers & Understand How To Satisfy Your Customers
 
-  * :triangular_flag_on_post: UI & UX:<br>[Awesome Hyvä for Hyvä Themes](https://www.jajuma.de/en/jajuma-develop/extensions/font-awesome-icons-for-hyva-themes-extension)<br>
+  * :triangular_flag_on_post: :free: UI & UX:<br>[Awesome Hyvä for Hyvä Themes](https://www.jajuma.de/en/jajuma-develop/extensions/font-awesome-icons-for-hyva-themes-extension)<br>
   Font Awesome 5 & 6 Icons for your [Hyvä Themes](https://www.jajuma.de/de/jajuma-shop/online-shop-mit-magento-2-und-hyva-themes) Store
 
   * :ok_man: :free: User Experience:<br>[Customer Navigation Manager for Magento 2](https://www.jajuma.de/en/jajuma-develop/extensions/customer-navigation-manager-extension-for-magento-2)<br>
