@@ -14,12 +14,66 @@
         <label translate="true">Hyvä FAQ (by JaJuMa)</label>
         <description translate="true">FAQ Widget for Hyvä Themes by JaJuMa</description>
         <parameters>
-            <parameter name="conditions" xsi:type="block" sort_order="10" visible="true">
+            <parameter name="conditions" xsi:type="block" sort_order="30" visible="true">
                 <label translate="true">Questions</label>
                 <block class="Jajuma\HyvaFaq\Block\Widgets\Faq\Questions"/>
             </parameter>
             <parameter name="is_show_question_on_desktop" xsi:type="select" required="true" sort_order="5">
                 <label>Question Groups open on Desktop View</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="display_question_group_title" xsi:type="select" required="true" sort_order="10">
+                <label>Display Question Group Title</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="keep_only_one_question_open" xsi:type="select" required="true" sort_order="15">
+                <label>Keep only one question open</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="open_close_icons" xsi:type="select" required="true" sort_order="20">
+                <label>Open/Close Icons</label>
+                <options>
+                    <option name="Chevron" value="1" selected="true">
+                        <label translate="true">Chevron Up/Down</label>
+                    </option>
+                    <option name="plus_minus" value="2">
+                        <label translate="true">Plus/Minus</label>
+                    </option>
+                    <option name="plus_x" value="3">
+                        <label translate="true">Plus/X</label>
+                    </option>
+                    <option name="plus_circle_minus_circle" value="4">
+                        <label translate="true">Plus-Circle/Minus-Circle</label>
+                    </option>
+                    <option name="plus_circle_x_circle" value="5">
+                        <label translate="true">Plus-Circle/X-Circle</label>
+                    </option>
+                </options>
+            </parameter>
+
+            <parameter name="enable_structured_data" xsi:type="select" required="true" sort_order="25">
+                <label>Enable Structured Data</label>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>

@@ -99,4 +99,53 @@ class Faq extends Template implements BlockInterface
     {
         return ($this->advancedWidgetHelper->getConfig('hyvafaq/general/is_enabled') == '1' ? true : false);
     }
+
+    public function isEnabledStructuredData()
+    {
+        return ($this->advancedWidgetHelper->getConfig('hyvafaq/general/is_enabled_structured_data') == '1' ? true : false);
+    }
+
+    public function getHeroicons($openCloseIcons, $isShowQuestionOnDesktop = 0)
+    {
+        $funcs = [];
+        $icons = [];
+        switch ($openCloseIcons) {
+            case 1:
+                $funcs['type'] = 'chevron';
+                if ($isShowQuestionOnDesktop){
+                    $icons[] = ['name' => 'chevronDownHtml', 'class' => ''];
+                }else{
+                    $icons[] = ['name' => 'chevronUpHtml', 'class' => ''];
+                }
+                $funcs['icons'] = $icons;
+                break;
+            case 2:
+                $funcs['type'] = 'plus-minus';
+                $icons[] = ['name' => 'plusHtml', 'class' => ':not(.active)'];
+                $icons[] = ['name' => 'minusHtml', 'class' => '.active'];
+                $funcs['icons'] = $icons;
+                break;
+            case 3:
+                $funcs['type'] = 'plus-x';
+                $icons[] = ['name' => 'plusHtml', 'class' => ':not(.active)'];
+                $icons[] = ['name' => 'xHtml', 'class' => '.active'];
+                $funcs['icons'] = $icons;
+                break;
+            case 4:
+                $funcs['type'] = 'plusCircle-minusCircle';
+                $icons[] = ['name' => 'plusCircleHtml', 'class' => ':not(.active)'];
+                $icons[] = ['name' => 'minusCircleHtml', 'class' => '.active'];
+                $funcs['icons'] = $icons;
+                break;
+            case 5:
+                $funcs['type'] = 'plusCircle-xCircle';
+                $icons[] = ['name' => 'plusCircleHtml', 'class' => ':not(.active)'];
+                $icons[] = ['name' => 'xCircleHtml', 'class' => '.active'];
+                $funcs['icons'] = $icons;
+                break;
+        }
+
+        return $funcs;
+
+    }
 }

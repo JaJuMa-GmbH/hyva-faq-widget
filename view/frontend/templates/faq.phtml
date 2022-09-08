@@ -16,83 +16,204 @@ use Jajuma\HyvaFaq\Block\Widgets\Faq;
 
 /** @var HeroiconsSolid $heroicons */
 $isEnabled = $block->isEnabled();
+$isEnabledStructuredData = $block->getData('enable_structured_data');
 $heroicons = $viewModels->require(HeroiconsSolid::class);
 
 $questionGroups = $block->getConditions();
 $isShowQuestionOnDesktop = $block->getData('is_show_question_on_desktop');
+$displayQuestionGroupTitle = $block->getData('display_question_group_title');
+$keepOnlyOneQuestionOpen = $block->getData('keep_only_one_question_open');
+$openCloseIcons = $block->getData('open_close_icons');
 $identifyNumber = rand(100,1000);
+$questionIndex = 0;
+$jsonLdArray = [];
+$heroIconsData = $block->getHeroicons($openCloseIcons, $isShowQuestionOnDesktop);
+$typeIcons = $heroIconsData['type'];
+$icons = $heroIconsData['icons'];
 ?>
 
 <?php if ($isEnabled && count($questionGroups)): ?>
+    <style>
+        .accordion-item-body-question,
+        .accordion-widget > .accordion-item-body{
+            display: none;
+        }
+        <?php foreach($icons as $icon): ?>
+            <?php $name = $icon['name']; ?>
+            .accordion-item-header-<?= $identifyNumber ?><?= $icon['class'] ?> .<?= $typeIcons ?>::after {
+                content: url(data:image/svg+xml;base64,<?= base64_encode($heroicons->$name("w-6 h-6",25,25)) ?>);
+            }
+        <?php endforeach; ?>
+
+        <?php if($isShowQuestionOnDesktop): ?>
+            .accordion-widget > .accordion-item-body{
+                display: block;
+            }
+        <?php endif; ?>
+        @media only screen and (max-width: 767px) {
+            .accordion-widget > .accordion-item-body {
+                display: none;
+            }
+        }
+    </style>
+
     <?php foreach ($questionGroups as $groupId => $questionGroup): ?>
         <div class="accordion-widget accordion-item mb-5 border" id="question-groups-<?= $groupId ?>">
-            <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer p-4 font-bold relative <?php if($isShowQuestionOnDesktop): ?>active <?php endif; ?>" >    
-                <strong><?= __($questionGroup['group_name']) ?></strong>
-                <span class="icon transition-all duration-300 transform absolute right-4 top-4">
-                    <?php if($isShowQuestionOnDesktop): ?>
-                        <?= $heroicons->chevronDownHtml(
-                            "w-6 h-6",
-                            25,
-                            25
-                        ) ?>
-                    <?php else: ?>
-                        <?= $heroicons->chevronUpHtml(
-                            "w-6 h-6",
-                            25,
-                            25
-                        ) ?>
-                    <?php endif; ?>
-                </span>
-                
-            </div>
-            <div class="accordion-item-body overflow-hidden transition-all duration-200 max-h-0
-			<?php if($isShowQuestionOnDesktop): ?>lg:max-h-full<?php endif; ?>" style="background: #f5f4f1;" id="content-group-<?= $groupId ?>">
-                <div class="accordion-item-body-content p-4 pb-0">
+            <?php if ($displayQuestionGroupTitle == 1) :?>
+                <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer px-8 py-4 pr-16	font-bold relative <?php if($isShowQuestionOnDesktop): ?>active <?php endif; ?>" data-index="<?= $questionIndex;?>">
+                    <strong><?= __($questionGroup['group_name']) ?></strong>
+                    <span class="icon transition-all duration-300 transform absolute right-8 top-4 <?= $typeIcons ?>">
+                    </span>
+                </div>
+            <?php endif;?>
+            <div class="accordion-item-body overflow-hidden" style="background: #f5f4f1;" id="content-group-<?= $groupId ?>">
+                <div class="accordion-item-body-content p-4 pb-0 overflow-hidden">
                     <?php foreach ($questionGroup['question_lists'] as $questionId => $question): ?>
                         <div class="accordion-widget-content accordion-item mb-4" id="question-detail-<?= $questionId ?>">
-                            <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer p-4 font-bold relative bg-white">
-                                <strong><?= __($question['question_title']) ?></strong>
-                                <span class="icon transition-all duration-300 transform absolute right-4 top-4">
-                                    <?= $heroicons->chevronUpHtml(
-                                        "w-6 h-6",
-                                        25,
-                                        25
-                                    ) ?>
+                            <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer p-4 pr-11 font-bold relative bg-white accordion-item-header-question" data-index="<?= $questionIndex;?>">
+                                <span><?= __($question['question_title']) ?></span>
+                                <span class="icon transition-all duration-300 transform absolute right-4 top-4 <?= $typeIcons ?>">
                                 </span>
-                                
                             </div>
-                            <div class="accordion-item-body max-h-0 overflow-hidden transition-all duration-200 bg-gray-100" id="content-question-<?= $questionId ?>">
+                            <div class="accordion-item-body overflow-hidden bg-gray-100 accordion-item-body-question" id="content-question-<?= $questionId ?>">
                                 <div class="accordion-item-body-content p-4">
                                     <?= $question['question_answer'] ?>
                                 </div>
                             </div>
                         </div>
-                        
-                    <?php endforeach; ?>
+                    <?php $questionIndex++;
+                        if ($isEnabledStructuredData) {
+                            $jsonLdArray[] = '{
+                                "@type": "Question",
+                                "name": "' . strip_tags($question['question_title']) . '",
+                                "acceptedAnswer": {
+                                  "@type": "Answer",
+                                  "text": "' . strip_tags($question['question_answer']) . '"
+                                }
+                            }';
+                        }
+                    endforeach; ?>
                 </div>
             </div>
         </div>
-    <?php endforeach; ?>
+    <?php $questionIndex++;
+    endforeach; ?>
+
     <script>
+        /* plain JS slideToggle https://github.com/ericbutler555/plain-js-slidetoggle */
+        HTMLElement.prototype.slideToggle = function(duration, callback) {
+            if (this.clientHeight === 0) {
+                _s(this, duration, callback, true);
+            } else {
+                _s(this, duration, callback);
+            }
+        };
+
+        HTMLElement.prototype.slideUp = function(duration, callback) {
+            _s(this, duration, callback);
+        };
+
+        HTMLElement.prototype.slideDown = function (duration, callback) {
+            _s(this, duration, callback, true);
+        };
+
+        function _s(el, duration, callback, isDown) {
+            if (typeof duration === 'undefined') duration = 400;
+            if (typeof isDown === 'undefined') isDown = false;
+
+            el.style.overflow = "hidden";
+            if (isDown) el.style.display = "block";
+
+            var elStyles        = window.getComputedStyle(el);
+
+            var elHeight        = parseFloat(elStyles.getPropertyValue('height'));
+            var elPaddingTop    = parseFloat(elStyles.getPropertyValue('padding-top'));
+            var elPaddingBottom = parseFloat(elStyles.getPropertyValue('padding-bottom'));
+            var elMarginTop     = parseFloat(elStyles.getPropertyValue('margin-top'));
+            var elMarginBottom  = parseFloat(elStyles.getPropertyValue('margin-bottom'));
+
+            var stepHeight        = elHeight        / duration;
+            var stepPaddingTop    = elPaddingTop    / duration;
+            var stepPaddingBottom = elPaddingBottom / duration;
+            var stepMarginTop     = elMarginTop     / duration;
+            var stepMarginBottom  = elMarginBottom  / duration;
+
+            var start;
+
+            function step(timestamp) {
+                if (start === undefined) start = timestamp;
+                var elapsed = timestamp - start;
+                if (isDown) {
+                    el.style.height        = (stepHeight        * elapsed) + "px";
+                    el.style.paddingTop    = (stepPaddingTop    * elapsed) + "px";
+                    el.style.paddingBottom = (stepPaddingBottom * elapsed) + "px";
+                    el.style.marginTop     = (stepMarginTop     * elapsed) + "px";
+                    el.style.marginBottom  = (stepMarginBottom  * elapsed) + "px";
+                } else {
+                    el.style.height        = elHeight        - (stepHeight        * elapsed) + "px";
+                    el.style.paddingTop    = elPaddingTop    - (stepPaddingTop    * elapsed) + "px";
+                    el.style.paddingBottom = elPaddingBottom - (stepPaddingBottom * elapsed) + "px";
+                    el.style.marginTop     = elMarginTop     - (stepMarginTop     * elapsed) + "px";
+                    el.style.marginBottom  = elMarginBottom  - (stepMarginBottom  * elapsed) + "px";
+                }
+
+                if (elapsed >= duration) {
+                    el.style.height        = "";
+                    el.style.paddingTop    = "";
+                    el.style.paddingBottom = "";
+                    el.style.marginTop     = "";
+                    el.style.marginBottom  = "";
+                    el.style.overflow      = "";
+                    if (!isDown) el.style.display = "none";
+                    if (typeof callback === 'function') callback();
+                } else {
+                  window.requestAnimationFrame(step);
+                }
+            }
+            window.requestAnimationFrame(step);
+        }
 
         document.querySelectorAll(".accordion-item-header-<?= $identifyNumber ?>").forEach(accordionItemHeader => {
             if(window.innerWidth < 768 && accordionItemHeader.classList.contains("active")) {
                 accordionItemHeader.classList.toggle("active");
             }
+
             accordionItemHeader.addEventListener("click", event => {
+                var headerQuestionIndex = accordionItemHeader.getAttribute('data-index');
+                <?php if($keepOnlyOneQuestionOpen) :?>
+                    if(accordionItemHeader.classList.contains("accordion-item-header-question")) {
+                        document.querySelectorAll(".accordion-widget-content .accordion-item-header-<?= $identifyNumber ?>").forEach(item => {
+                            if(item.getAttribute('data-index') != headerQuestionIndex){
+                                item.classList.remove('active');
+                                var icon = item.querySelector('.icon');
+                                icon.classList.remove('rotate-180');
+                                const accordionItemBody = item.nextElementSibling;
+                                accordionItemBody.slideUp(300);
+                            }
+                        });
+                    }
+                <?php endif;?>
 
                 accordionItemHeader.classList.toggle("active");
-                var icon = accordionItemHeader.querySelector('.icon');
-                icon.classList.toggle("rotate-180");
+                <?php if ($openCloseIcons == 1) :?>
+                    var icon = accordionItemHeader.querySelector('.icon');
+                    icon.classList.toggle('rotate-180');
+                <?php endif;?>
                 const accordionItemBody = accordionItemHeader.nextElementSibling;
-                if(accordionItemHeader.classList.contains("active")) {
-                    accordionItemBody.style.maxHeight = "unset";
-                }
-                else {
-                    accordionItemBody.style.maxHeight = 0;
-                }
-                
+                accordionItemBody.slideToggle(300);
             });
         });
     </script>
+
+    <?php if ($isEnabledStructuredData) :
+        if (count($jsonLdArray) > 0) :?>
+            <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [<?= implode(',', $jsonLdArray); ?>]
+            }
+            </script>
+    <?php endif;
+    endif;?>
 <?php endif; ?>
