@@ -21,7 +21,9 @@ $heroicons = $viewModels->require(HeroiconsSolid::class);
 
 $questionGroups = $block->getConditions();
 $isShowQuestionOnDesktop = $block->getData('is_show_question_on_desktop');
-$displayQuestionGroupTitle = $block->getData('display_question_group_title');
+$displayQuestionGroupTitle = $block->getData('display_desktop_question_group_title');
+$isShowQuestionOnMobile = $block->getData('is_show_question_on_mobile');
+$displayMobileQuestionGroupTitle = $block->getData('display_mobile_question_group_title');
 $keepOnlyOneQuestionOpen = $block->getData('keep_only_one_question_open');
 $openCloseIcons = $block->getData('open_close_icons');
 $identifyNumber = rand(100,1000);
@@ -30,6 +32,26 @@ $jsonLdArray = [];
 $heroIconsData = $block->getHeroicons($openCloseIcons, $isShowQuestionOnDesktop);
 $typeIcons = $heroIconsData['type'];
 $icons = $heroIconsData['icons'];
+// desktop
+if ($isShowQuestionOnDesktop) {
+    if  ($displayQuestionGroupTitle) {
+        $desktopHeaderStyle = 'md:block';
+    } else {
+        $desktopHeaderStyle = 'md:hidden';
+    }
+} else {
+    $desktopHeaderStyle = 'md:block';
+}
+//mobile
+if ($isShowQuestionOnMobile) {
+    if  ($displayMobileQuestionGroupTitle) {
+        $mobileHeaderStyle = 'block';
+    } else {
+        $mobileHeaderStyle = 'hidden';
+    }
+} else {
+    $mobileHeaderStyle = 'block';
+}
 ?>
 
 <?php if ($isEnabled && count($questionGroups)): ?>
@@ -52,20 +74,18 @@ $icons = $heroIconsData['icons'];
         <?php endif; ?>
         @media only screen and (max-width: 767px) {
             .accordion-widget > .accordion-item-body {
-                display: none;
+                display: <?= $isShowQuestionOnMobile ? 'block' : 'none' ?>;
             }
         }
     </style>
 
     <?php foreach ($questionGroups as $groupId => $questionGroup): ?>
         <div class="accordion-widget accordion-item mb-5 border" id="question-groups-<?= $groupId ?>">
-            <?php if ($displayQuestionGroupTitle == 1) :?>
-                <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer px-8 py-4 pr-16	font-bold relative <?php if($isShowQuestionOnDesktop): ?>active <?php endif; ?>" data-index="<?= $questionIndex;?>">
-                    <strong><?= __($questionGroup['group_name']) ?></strong>
-                    <span class="icon transition-all duration-300 transform absolute right-8 top-4 <?= $typeIcons ?>">
-                    </span>
-                </div>
-            <?php endif;?>
+            <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer px-8 py-4 pr-16	font-bold relative <?= $mobileHeaderStyle.' '.$desktopHeaderStyle ?>" data-index="<?= $questionIndex;?>">
+                <strong><?= __($questionGroup['group_name']) ?></strong>
+                <span class="icon transition-all duration-300 transform absolute right-8 top-4 <?= $typeIcons ?>">
+                </span>
+            </div>
             <div class="accordion-item-body overflow-hidden" style="background: #f5f4f1;" id="content-group-<?= $groupId ?>">
                 <div class="accordion-item-body-content p-4 pb-0 overflow-hidden">
                     <?php foreach ($questionGroup['question_lists'] as $questionId => $question): ?>
@@ -174,8 +194,24 @@ $icons = $heroIconsData['icons'];
         }
 
         document.querySelectorAll(".accordion-item-header-<?= $identifyNumber ?>").forEach(accordionItemHeader => {
-            if(window.innerWidth < 768 && accordionItemHeader.classList.contains("active")) {
-                accordionItemHeader.classList.toggle("active");
+            if(!accordionItemHeader.classList.contains("accordion-item-header-question")) {
+                if  (window.innerWidth < 768) {
+                    <?php if($isShowQuestionOnMobile): ?>
+                        accordionItemHeader.classList.add("active");
+                        <?php if ($openCloseIcons == 1) :?>
+                            var icon = accordionItemHeader.querySelector('.icon');
+                            icon.classList.toggle('rotate-180');
+                        <?php endif;?>
+                    <?php endif; ?>
+                } else {
+                    <?php if($isShowQuestionOnDesktop): ?>
+                        accordionItemHeader.classList.add("active");
+                        <?php if ($openCloseIcons == 1) :?>
+                            var icon = accordionItemHeader.querySelector('.icon');
+                            icon.classList.toggle('rotate-180');
+                        <?php endif;?>
+                    <?php endif; ?>
+                }
             }
 
             accordionItemHeader.addEventListener("click", event => {

@@ -15,8 +15,8 @@ Compatible with
 
 * Add 1 - x question groups
 * Add 1 - x questions and answers in each question group
-* Choose if question groups are shown as open or closed as default on page load on desktop (always closed on mobile)
-* Option to show/hide Question Group Title
+* Choose if question groups are shown as open or closed on desktop / on mobile
+* Option to show/hide Question Group Title on desktop / on mobile
 * Option to keep only one question open
 * Choose icons for open/close questions
 * Option to add JSON-LD structured data for FAQs
@@ -67,7 +67,7 @@ The code is licensed under the [MIT License (MIT)](https://github.com/JaJuMa-Gmb
 
 ## Other [Magento 2 Extensions](ttps://www.jajuma.de/en/jajuma-develop/magento-extensions) by [JaJuMa](https://www.jajuma.de/)
 
-* :framed_picture: Performance & UX:<br>[Ultimate Image Optimizer for Magento 2](https://www.jajuma.de/en/jajuma-develop/extensions/ultimate-image-optimizer-extension-for-magento-2)<br>
+  * :framed_picture: Performance & UX:<br>[Ultimate Image Optimizer for Magento 2](https://www.jajuma.de/en/jajuma-develop/extensions/ultimate-image-optimizer-extension-for-magento-2)<br>
   AVIF & WebP Images, Lazy Loading, High-Resolution / Retina images
 
   * :framed_picture: Performance & UX:<br>[WebP Optimized Images for Magento 2](https://www.jajuma.de/en/jajuma-develop/extensions/webp-optimized-images-extension-for-magento-2#portfolio-content)<br>

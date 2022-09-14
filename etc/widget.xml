@@ -29,8 +29,36 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="display_question_group_title" xsi:type="select" required="true" sort_order="10">
-                <label>Display Question Group Title</label>
+            <parameter name="display_desktop_question_group_title" xsi:type="select" required="true" sort_order="10">
+                <label>Display Question Group Title on Desktop View</label>
+                <depends>
+                    <parameter name="is_show_question_on_desktop" value="1"/>
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="is_show_question_on_mobile" xsi:type="select" required="true" sort_order="10">
+                <label>Question Groups open on Mobile View</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="display_mobile_question_group_title" xsi:type="select" required="true" sort_order="10">
+                <label>Display Question Group Title on Mobile View</label>
+                <depends>
+                    <parameter name="is_show_question_on_mobile" value="1"/>
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
