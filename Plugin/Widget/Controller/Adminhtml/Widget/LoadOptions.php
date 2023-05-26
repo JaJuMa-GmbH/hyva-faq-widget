@@ -63,19 +63,13 @@ class LoadOptions
                         $optionsBlock->setWidgetType($request['widget_type']);
                     }
                     if (isset($request['values'])) {
-                        $request['values'] = array_map('htmlspecialchars_decode', $request['values']);
+                        if ($optionsBlock->getWidgetType() != 'Jajuma\HyvaFaq\Block\Widgets\Faq') {
+                            $request['values'] = array_map('htmlspecialchars_decode', $request['values']);
+                        }
                         if (isset($request['values']['conditions_encoded'])) {
                             $request['values']['conditions'] =
                                 $this->getConditionsHelper()->decode($request['values']['conditions_encoded']);
                         }
-                        if ($optionsBlock->getWidgetType() == 'Jajuma\HyvaFaq\Block\Widgets\Faq') {
-                            $helper = $this->objectManager->create(\Jajuma\HyvaFaq\Helper\Data::class);
-                            foreach ($request['values'] as $key => $value) {
-                                if ($key == 'questions') {
-                                    $request['values'][$key] = $helper->decodeWidgetValues($value);
-                                }
-                            }
-                        } 
                         $optionsBlock->setWidgetValues($request['values']);
                     }
                 }

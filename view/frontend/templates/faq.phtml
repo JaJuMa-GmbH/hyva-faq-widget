@@ -97,7 +97,7 @@ if ($isShowQuestionOnMobile) {
                             </div>
                             <div class="accordion-item-body overflow-hidden bg-gray-100 accordion-item-body-question" id="content-question-<?= $questionId ?>">
                                 <div class="accordion-item-body-content p-4">
-                                    <?= $question['question_answer'] ?>
+                                    <?= $this->processorAnswerContent($question['question_answer']) ?>
                                 </div>
                             </div>
                         </div>

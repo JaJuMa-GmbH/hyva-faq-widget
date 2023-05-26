@@ -77,6 +77,18 @@ class Faq extends Template implements BlockInterface
     }
 
     /**
+     * @param string $answer
+     * @return string
+     * @throws Exception
+     */
+    public function processorAnswerContent($answer)
+    {
+        return $this->filterProvider->getPageFilter()->filter(
+            $answer
+        );
+    }
+
+    /**
      * @return array
      */
     public function getConditions(): array
