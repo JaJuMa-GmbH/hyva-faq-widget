@@ -57,7 +57,7 @@ if (count($contentValues)) {
             '<label for="parameters[conditions][<%- data.id %>][group_name]">Question Group <span class="required">*</span></label>' +
             '<input name="parameters[conditions][<%- data.id %>][group_name]" value="<%- data.group_name %>" id="parameters[conditions][<%- data.id %>][group_name]" type="text" class="admin__control-text" style="margin-right: 10px; width: 85%;" />' +
             '<div class="actions">' +
-            <?= /* @noEscape */ $block->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getRemoveLayoutButtonHtml()) ?> +
+            <?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getRemoveLayoutButtonHtml()) ?> +
                 '</div>'+
             '</div>'+
             '<div class="fieldset-wrapper-content" style="padding:20px">' +
