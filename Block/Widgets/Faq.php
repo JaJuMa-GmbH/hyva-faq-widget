@@ -46,6 +46,7 @@ class Faq extends Template implements BlockInterface
      * @param \Magento\Framework\Filter\Template $templateProcessor
      * @param FilterProvider $filterProvider
      * @param Data $advancedWidgetHelper
+     * @param Conditions $conditionsHelper
      * @param array $data
      */
     public function __construct(
@@ -55,8 +56,7 @@ class Faq extends Template implements BlockInterface
         Data $advancedWidgetHelper,
         Conditions $conditionsHelper,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->templateProcessor = $templateProcessor;
         $this->filterProvider = $filterProvider;
@@ -124,9 +124,9 @@ class Faq extends Template implements BlockInterface
         switch ($openCloseIcons) {
             case 1:
                 $funcs['type'] = 'chevron';
-                if ($isShowQuestionOnDesktop){
+                if ($isShowQuestionOnDesktop) {
                     $icons[] = ['name' => 'chevronDownHtml', 'class' => ''];
-                }else{
+                } else {
                     $icons[] = ['name' => 'chevronUpHtml', 'class' => ''];
                 }
                 $funcs['icons'] = $icons;
@@ -158,6 +158,5 @@ class Faq extends Template implements BlockInterface
         }
 
         return $funcs;
-
     }
 }

@@ -5,12 +5,13 @@
  * @license   http://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Jajuma\AdvancedWidget\Block\Widgets\Faq\Questions; 
-/** @var Questions $block * */ 
+use Jajuma\AdvancedWidget\Block\Widgets\Faq\Questions;
+
+/** @var Questions $block * */
 
 $contentValues = $block->getWidgetContentValues();
-if(count($contentValues)) {
-    if (array_key_exists('conditions',$contentValues)) {
+if (count($contentValues)) {
+    if (array_key_exists('conditions', $contentValues)) {
         $questionsGroup = $contentValues['conditions'];
     } else {
         $questionsGroup = $block->getConditionsHelper()->decode($contentValues['conditions_encoded']);
@@ -56,7 +57,7 @@ if(count($contentValues)) {
             '<label for="parameters[conditions][<%- data.id %>][group_name]">Question Group <span class="required">*</span></label>' +
             '<input name="parameters[conditions][<%- data.id %>][group_name]" value="<%- data.group_name %>" id="parameters[conditions][<%- data.id %>][group_name]" type="text" class="admin__control-text" style="margin-right: 10px; width: 85%;" />' +
             '<div class="actions">' +
-            <?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getRemoveLayoutButtonHtml()) ?> +
+            <?= /* @noEscape */ $block->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getRemoveLayoutButtonHtml()) ?> +
                 '</div>'+
             '</div>'+
             '<div class="fieldset-wrapper-content" style="padding:20px">' +
@@ -180,10 +181,10 @@ if(count($contentValues)) {
 
         jQuery(function(){
             <?php if ($questionsGroup): ?>
-            <?php $questionsGroup = $block->getAdvancedWidgetHelper()->decodeWidgetValues($questionsGroup) ?>
-            <?php foreach ($questionsGroup as $questionGroup): ?>
-            JajumaWidgetFAQInstance.addItemGroup(<?= /* @noEscape */ json_encode($questionGroup) ?>);
-            <?php endforeach; ?>
+                <?php $questionsGroup = $block->getAdvancedWidgetHelper()->decodeWidgetValues($questionsGroup) ?>
+                <?php foreach ($questionsGroup as $questionGroup): ?>
+                    JajumaWidgetFAQInstance.addItemGroup(<?= /* @noEscape */ json_encode($questionGroup) ?>);
+                <?php endforeach; ?>
             <?php endif; ?>
         });
     });

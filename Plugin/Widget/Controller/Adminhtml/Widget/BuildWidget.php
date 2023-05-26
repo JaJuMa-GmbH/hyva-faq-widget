@@ -47,8 +47,7 @@ class BuildWidget
         Data $helper,
         File $file,
         DirectoryList $directoryList
-    )
-    {
+    ) {
         $this->widget = $widget;
         $this->helper = $helper;
         $this->file = $file;
@@ -62,8 +61,7 @@ class BuildWidget
     public function aroundExecute(
         \Magento\Widget\Controller\Adminhtml\Widget\BuildWidget $subject,
         Closure $proceed
-    )
-    {
+    ) {
         $type = $subject->getRequest()->getPost('widget_type');
         $params = $subject->getRequest()->getPost('parameters', []);
         $asIs = $subject->getRequest()->getPost('as_is');

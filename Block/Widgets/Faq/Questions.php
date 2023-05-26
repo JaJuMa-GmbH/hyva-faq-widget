@@ -59,6 +59,7 @@ class Questions extends Template
      * @param Config $wysiwygConfig
      * @param Data $advancedWidgetHelper
      * @param Registry $coreRegistry
+     * @param Conditions $conditionsHelper
      * @param array $data
      */
     public function __construct(
@@ -69,8 +70,7 @@ class Questions extends Template
         Registry $coreRegistry,
         Conditions $conditionsHelper,
         $data = []
-    )
-    {
+    ) {
         $this->elementFactory = $elementFactory;
         $this->wysiwygConfig = $wysiwygConfig;
         $this->advancedWidgetHelper = $advancedWidgetHelper;
@@ -198,5 +198,4 @@ class Questions extends Template
     {
         return $this->conditionsHelper;
     }
-
 }

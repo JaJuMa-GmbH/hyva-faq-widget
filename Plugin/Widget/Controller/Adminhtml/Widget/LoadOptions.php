@@ -38,8 +38,7 @@ class LoadOptions
     public function __construct(
         ObjectManagerInterface $objectManager,
         ViewInterface $view
-    )
-    {
+    ) {
         $this->view = $view;
         $this->objectManager = $objectManager;
     }
@@ -51,8 +50,7 @@ class LoadOptions
     public function aroundExecute(
         \Magento\Widget\Controller\Adminhtml\Widget\LoadOptions $subject,
         Closure $proceed
-    )
-    {
+    ) {
         try {
             $this->view->loadLayout();
             if ($paramsJson = $subject->getRequest()->getParam('widget')) {
