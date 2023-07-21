@@ -48,7 +48,7 @@ It is automatically included in TailwindCSS purge config (requires Hyvä Theme v
 ## Platform
 The following versions are supported and tested:
 
-* Magento Community Edition 2.3+ with
+* Magento Community Edition 2.4+ with
 * [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes)  
 
 Other versions are assumed to work.
@@ -118,11 +118,17 @@ The code is licensed under the [MIT License (MIT)](https://github.com/JaJuMa-Gmb
 * :octocat: Content Management:<br>[git 4 Page Builder](https://www.jajuma.de/en/jajuma-develop/extensions/git-4-page-builder-extension-for-magento-2)<br>
   Manage & deploy Magento 2 Page Builder content via git
 
+* :rocket: Performance:<br>[Hyvä Inline CSS](https://www.jajuma.de/en/jajuma-develop/extensions/hyva-inline-css-extension-for-magento-with-hyva-themes)<br>
+  Run Magento 2 without CSS file by inline all CSS
+
 * :man_technologist: :free: Content Management:<br>[Syntax Highlighter 4 Page Builder](https://www.jajuma.de/en/jajuma-develop/extensions/syntax-highlighter-4-page-builder-extension-for-magento-2)<br>
   Syntax Highlighting and more for Magento 2 Page Builder
 
 * :triangular_flag_on_post: :free: UI & UX:<br>[Awesome Hyvä for Hyvä Themes](https://www.jajuma.de/en/jajuma-develop/extensions/font-awesome-icons-for-hyva-themes-extension)<br>
   Font Awesome 5 & 6 Icons for your [Hyvä Themes](https://www.jajuma.de/de/jajuma-shop/online-shop-mit-magento-2-und-hyva-themes) Store
+
+* :triangular_flag_on_post: :free: UI & UX:<br>[Hyvä Flags for Hyvä Themes](https://www.jajuma.de/en/jajuma-develop/extensions/country-language-flag-icons-for-hyva-themes-extension)<br>
+  Country & Language Flag Icons for your [Hyvä Themes](https://www.jajuma.de/de/jajuma-shop/online-shop-mit-magento-2-und-hyva-themes) Store
 
 * :ok_man: :free: User Experience:<br>[Customer Navigation Manager for Magento 2](https://www.jajuma.de/en/jajuma-develop/extensions/customer-navigation-manager-extension-for-magento-2)<br>
   Easily manage the links in your Customer Account

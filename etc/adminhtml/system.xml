@@ -100,7 +100,7 @@
 				                224.517V336H106.692V115.336H74L91.2077 64H158.026V174.716ZM272.988 109.567L286.407
 				                69.7565H239.485L226.132 109.567H272.988ZM235.338 64H294.409L277.112
 				                115.336H218.13L235.338 64Z"></path></svg> Hyvä Theme Demo</a>
-				                <div style="float: right;">Installed Version: <b>1.1.2</b></div>
+				                <div style="float: right;">Installed Version: <b>1.1.3</b></div>
 				             </div>
                         </div>
                             <hr>
@@ -142,12 +142,16 @@
                                        target="_blank">Back Forward Cache (bfcache)</a>
                                     <a href="https://www.jajuma.de/en/jajuma-develop/extensions/git-4-page-builder-extension-for-magento-2"
                                        target="_blank">git 4 Page Builder</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/hyva-inline-css-extension-for-magento-with-hyva-themes"
+                                       target="_blank">Hyvä Inline CSS</a>
                                     <a href="https://www.jajuma.de/en/jajuma-develop/extensions/syntax-highlighter-4-page-builder-extension-for-magento-2"
                                        target="_blank"><b>Free:</b> Syntax Highlighter 4 Page Builder</a>
                                     <a href="https://www.jajuma.de/en/jajuma-develop/extensions/customer-navigation-manager-extension-for-magento-2"
                                        target="_blank"><b>Free:</b> Customer Navigation Manager</a>
                                     <a href="https://www.jajuma.de/en/jajuma-develop/extensions/font-awesome-icons-for-hyva-themes-extension"
                                        target="_blank"><b>Free:</b> Awesome Hyvä</a>
+                                    <a href="https://www.jajuma.de/en/jajuma-develop/extensions/country-language-flag-icons-for-hyva-themes-extension"
+                                       target="_blank"><b>Free:</b> Hyvä Flags</a>
                                     <a href="https://www.jajuma.de/en/jajuma-develop/extensions/dynamic-shipping-tax-extension-for-magento-2"
                                        target="_blank"><b>Free:</b> Dynamic Shipping Tax</a>
                                     <a href="https://www.jajuma.de/en/jajuma-develop/extensions/hyva-pwa-extension-for-magento-2"
