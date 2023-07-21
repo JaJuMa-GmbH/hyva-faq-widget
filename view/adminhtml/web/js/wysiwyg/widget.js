@@ -281,7 +281,7 @@ define([
                 // attempt to Base64-decode id on selected node; exception is thrown if it is in fact not a widget node
                 try {
                     widgetCode = Base64.idDecode(e.id);
-                    if (widgetCode.include('Jajuma\\HyvaFaq\\Block\\Widgets\\Faq') && widgetCode.include('media url')) {
+                    if (widgetCode.include('Jajuma\\HyvaFaq\\Block\\Widgets\\Faq')) {
                         widgetCode = widgetCode.replaceAll('\\"', '&quot;');
                     }
                 } catch (ex) {
