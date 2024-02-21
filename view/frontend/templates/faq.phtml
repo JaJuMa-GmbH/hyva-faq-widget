@@ -193,31 +193,32 @@ if ($isShowQuestionOnMobile) {
             }
             window.requestAnimationFrame(step);
         }
-    
-        document.querySelectorAll(".accordion-item-header-<?= $identifyNumber ?>").forEach(accordionItemHeader => {
-            if(!accordionItemHeader.classList.contains("accordion-item-header-question")) {
-                if  (window.innerWidth < 768) {
-                    <?php if ($isShowQuestionOnMobile): ?>
-                        accordionItemHeader.classList.add("active");
-                        <?php if ($openCloseIcons == 1):?>
-                            var icon = accordionItemHeader.querySelector('.icon');
-                            icon.classList.toggle('rotate-180');
-                        <?php endif;?>
-                    <?php endif; ?>
-                } else {
-                    <?php if ($isShowQuestionOnDesktop): ?>
-                        accordionItemHeader.classList.add("active");
-                        <?php if ($openCloseIcons == 1):?>
-                            var icon = accordionItemHeader.querySelector('.icon');
-                            icon.classList.toggle('rotate-180');
-                        <?php endif;?>
-                    <?php endif; ?>
-                }
-            }
 
-            accordionItemHeader.addEventListener("click", event => {
-                var headerQuestionIndex = accordionItemHeader.getAttribute('data-index');
-                <?php if ($keepOnlyOneQuestionOpen):?>
+        window.addEventListener('init-external-scripts', () => {
+            document.querySelectorAll(".accordion-item-header-<?= $identifyNumber ?>").forEach(accordionItemHeader => {
+                if(!accordionItemHeader.classList.contains("accordion-item-header-question")) {
+                    if  (window.innerWidth < 768) {
+                        <?php if ($isShowQuestionOnMobile): ?>
+                        accordionItemHeader.classList.add("active");
+                        <?php if ($openCloseIcons == 1):?>
+                        var icon = accordionItemHeader.querySelector('.icon');
+                        icon.classList.toggle('rotate-180');
+                        <?php endif;?>
+                        <?php endif; ?>
+                    } else {
+                        <?php if ($isShowQuestionOnDesktop): ?>
+                        accordionItemHeader.classList.add("active");
+                        <?php if ($openCloseIcons == 1):?>
+                        var icon = accordionItemHeader.querySelector('.icon');
+                        icon.classList.toggle('rotate-180');
+                        <?php endif;?>
+                        <?php endif; ?>
+                    }
+                }
+
+                accordionItemHeader.addEventListener("click", event => {
+                    var headerQuestionIndex = accordionItemHeader.getAttribute('data-index');
+                    <?php if ($keepOnlyOneQuestionOpen):?>
                     if(accordionItemHeader.classList.contains("accordion-item-header-question")) {
                         document.querySelectorAll(".accordion-widget-content .accordion-item-header-<?= $identifyNumber ?>").forEach(item => {
                             if(item.getAttribute('data-index') != headerQuestionIndex){
@@ -229,17 +230,19 @@ if ($isShowQuestionOnMobile) {
                             }
                         });
                     }
-                <?php endif;?>
+                    <?php endif;?>
 
-                accordionItemHeader.classList.toggle("active");
-                <?php if ($openCloseIcons == 1):?>
+                    accordionItemHeader.classList.toggle("active");
+                    <?php if ($openCloseIcons == 1):?>
                     var icon = accordionItemHeader.querySelector('.icon');
                     icon.classList.toggle('rotate-180');
-                <?php endif;?>
-                const accordionItemBody = accordionItemHeader.nextElementSibling;
-                accordionItemBody.slideToggle(300);
+                    <?php endif;?>
+                    const accordionItemBody = accordionItemHeader.nextElementSibling;
+                    accordionItemBody.slideToggle(300);
+                });
             });
-        });
+        }, {once: true, passive: true});
+
     </script>
 
     <?php if ($isEnabledStructuredData):
