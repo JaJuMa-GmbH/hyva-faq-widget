@@ -9,6 +9,7 @@ define([
     'jquery',
     'wysiwygAdapter',
     'Magento_Ui/js/modal/alert',
+    'mage/adminhtml/tools',
     'jquery/ui',
     'mage/translate',
     'mage/mage',
@@ -144,6 +145,10 @@ define([
                          * On complete.
                          */
                         onComplete: function () {
+                            document.querySelectorAll('textarea[name*="question_answer"]').forEach(elem => {
+                                let value = elem.value;
+                                elem.value = Base64.decode(value);
+                            })
                             dialog.removeClass('loading');
                         }
                     });
@@ -316,6 +321,7 @@ define([
                 $wrapper,
                 typeName = this.optionValues.get('type_name');
 
+            //debugger;
             if (!this.widgetEl.value) {
                 if (typeName) {
                     msgTmpl = jQuery.mage.__('The widget %1 is no longer available. Select a different widget.');
@@ -450,10 +456,15 @@ define([
                         i++;
                     }
                 });
-
+                formElements.forEach(item => {
+                    let elemName = item.name;
+                    if (elemName.indexOf('question_answer') !== -1) {
+                        item.value = Base64.encode(item.value);
+                    }
+                })
                 // Add as_is flag to parameters if wysiwyg editor doesn't exist
                 params = Form.serializeElements(formElements);
-
+                //debugger;
                 if (!this.wysiwygExists()) {
                     params += '&as_is=1';
                 }

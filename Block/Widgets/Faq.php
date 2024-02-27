@@ -96,7 +96,17 @@ class Faq extends Template implements BlockInterface
         $conditions = $this->getData('conditions_encoded')
             ? $this->getData('conditions_encoded')
             : $this->getData('conditions');
-        return $conditions ? $this->conditionsHelper->decode($conditions) : [];
+        $conditionArr = $conditions ? $this->conditionsHelper->decode($conditions) : [];
+        $conditionArr = array_map(function ($condition) {
+            $questionLists = $condition['question_lists'];
+            $newQuestionLists = array_map(function($item) {
+                    $item['question_answer'] = base64_decode($item['question_answer']) ?: $item['question_answer'];
+                    return $item;
+                }, $questionLists);
+            $condition['question_lists'] = $newQuestionLists;
+            return $condition;
+        }, $conditionArr);
+        return $conditionArr;
     }
 
     /**

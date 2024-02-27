@@ -65,8 +65,18 @@ class LoadOptions
                             $request['values'] = array_map('htmlspecialchars_decode', $request['values']);
                         }
                         if (isset($request['values']['conditions_encoded'])) {
-                            $request['values']['conditions'] =
-                                $this->getConditionsHelper()->decode($request['values']['conditions_encoded']);
+                            $conditions = $this->getConditionsHelper()->decode($request['values']['conditions_encoded']);
+                            $conditions = array_map(function ($condition) {
+                                $questionLists = $condition['question_lists'];
+                                $newQuestionLists = array_map(function($item) {
+                                    $item['question_answer'] = base64_decode($item['question_answer']) ?: $item['question_answer'];
+                                    return $item;
+                                }, $questionLists);
+                                $condition['question_lists'] = $newQuestionLists;
+                                return $condition;
+                            }, $conditions);
+
+                            $request['values']['conditions'] = $conditions;
                         }
                         $optionsBlock->setWidgetValues($request['values']);
                     }
