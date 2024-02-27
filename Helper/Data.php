@@ -75,4 +75,13 @@ class Data extends AbstractHelper
 
         return $values;
     }
+
+    public function isBase64($name){
+        $encoding_type = mb_detect_encoding(base64_decode($name));
+        if($encoding_type == "ASCII" || $encoding_type == "UTF-8"){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

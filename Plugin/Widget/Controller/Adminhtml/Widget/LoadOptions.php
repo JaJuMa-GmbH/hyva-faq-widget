@@ -8,6 +8,7 @@
 namespace Jajuma\HyvaFaq\Plugin\Widget\Controller\Adminhtml\Widget;
 
 use Closure;
+use Jajuma\HyvaFaq\Helper\Data;
 use Magento\Framework\App\ViewInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\ObjectManager;
@@ -31,16 +32,20 @@ class LoadOptions
      */
     private $conditionsHelper;
 
+    protected $advancedWidgetHelper;
+
     /**
      * @param ObjectManagerInterface $objectManager
      * @param ViewInterface $view
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
-        ViewInterface $view
+        ViewInterface $view,
+        Data $advancedWidgetHelper,
     ) {
         $this->view = $view;
         $this->objectManager = $objectManager;
+        $this->advancedWidgetHelper = $advancedWidgetHelper;
     }
 
     /**
@@ -69,7 +74,9 @@ class LoadOptions
                             $conditions = array_map(function ($condition) {
                                 $questionLists = $condition['question_lists'];
                                 $newQuestionLists = array_map(function($item) {
-                                    $item['question_answer'] = base64_decode($item['question_answer']) ?: $item['question_answer'];
+                                    if ($this->advancedWidgetHelper->isBase64($item['question_answer'])){
+                                        $item['question_answer'] = base64_decode($item['question_answer']);
+                                    }
                                     return $item;
                                 }, $questionLists);
                                 $condition['question_lists'] = $newQuestionLists;

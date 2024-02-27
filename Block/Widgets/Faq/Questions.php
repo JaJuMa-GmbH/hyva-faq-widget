@@ -204,7 +204,9 @@ class Questions extends Template
         $widgetDecodedArr = array_map(function ($condition) {
             $questionLists = $condition['question_lists'];
             $newQuestionLists = array_map(function($item) {
-                $item['question_answer'] = base64_decode($item['question_answer']) ?: $item['question_answer'];
+                if ($this->advancedWidgetHelper->isBase64($item['question_answer'])){
+                    $item['question_answer'] = base64_decode($item['question_answer']);
+                }
                 return $item;
             }, $questionLists);
             $condition['question_lists'] = $newQuestionLists;
