@@ -106,10 +106,10 @@ if ($isShowQuestionOnMobile) {
                         if ($isEnabledStructuredData) {
                             $jsonLdArray[] = '{
                                 "@type": "Question",
-                                "name": "' . strip_tags($question['question_title']) . '",
+                                "name": ' . json_encode(strip_tags($question['question_title'])) . ',
                                 "acceptedAnswer": {
                                   "@type": "Answer",
-                                  "text": "' . strip_tags($question['question_answer']) . '"
+                                  "text": ' . json_encode(strip_tags($question['question_answer'])) . '
                                 }
                             }';
                         }
