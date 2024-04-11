@@ -2,8 +2,12 @@
 
 <img align="right" width="300" height="auto" src="https://www.jajuma.de/media/wysiwyg/jajuma-develop/hyva-faq-widget-extension-for-hyva-themes/Hyva-FAQ-Widget-Magento-2-large.png">  
 
+<br><br>
+
 [Hyvä FAQ Widget by JaJuMa](https://www.jajuma.de/en/jajuma-develop/magento-extensions/hyva-faq-widget-extension-for-hyva-themes) allows  
 adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes) easily.  
+
+<br><br>
 
 ### Compatible with
 
@@ -22,6 +26,8 @@ adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jaj
     </table>
 </td>
 
+<img src="https://www.jajuma.de/media/wysiwyg/jajuma-develop/hyva-faq-widget-extension-for-hyva-themes/Hyva-FAQ-Widget-for-Magento-2-with-Hyva-Theme.jpg">
+
 ## Features
 
 * Add 1 - x question groups
@@ -30,6 +36,7 @@ adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jaj
 * Option to show/hide Question Group Title on desktop / on mobile
 * Option to keep only one question open
 * Choose icons for open/close questions
+* Animated open/close
 * Option to add JSON-LD structured data for FAQs
 
 ## Further Info, Extension Description & Manual
@@ -40,6 +47,7 @@ adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jaj
 ## Demos
 
 * [Hyva FAQ Widget Demo on Hyvä Theme](https://hyva.extension.jajuma.de/hyva-faq-widget-example)
+* [Hyva FAQ Widget Demo on Mage-OS](https://mage-os.extension.jajuma.de/hyva-faq-widget-example)
 
 <img src="https://www.jajuma.de/media/wysiwyg/jajuma-develop/hyva-faq-widget-extension-for-hyva-themes/Hyva-FAQ-Widget-Backend.png">
 <hr>
@@ -59,7 +67,7 @@ It is automatically included in TailwindCSS purge config (requires Hyvä Theme v
 ## Platform
 The following versions are supported and tested:
 
-* Magento Community Edition 2.4+ with
+* Magento Community Edition 2.4+ & [Mage-OS](https://www.jajuma.de/en/jajuma-shop/demo-shop-with-mage-os-and-hyva-themes) with
 * [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes)  
 
 Other versions are assumed to work.
