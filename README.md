@@ -1,5 +1,8 @@
 # Hyvä FAQ Widget for Magento 2 with Hyvä Themes  by [JaJuMa](https://www.jajuma.de/)
 
+<img src="https://www.jajuma.de/media/wysiwyg/jajuma-develop/hyva-faq-widget-extension-for-hyva-themes/Hyva-FAQ-Widget-for-Magento-2-with-Hyva-Theme.jpg">
+
+
 <img align="right" width="300" height="auto" src="https://www.jajuma.de/media/wysiwyg/jajuma-develop/hyva-faq-widget-extension-for-hyva-themes/Hyva-FAQ-Widget-Magento-2-large.png">  
 
 <br><br>
@@ -26,7 +29,6 @@ adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jaj
     </table>
 </td>
 
-<img src="https://www.jajuma.de/media/wysiwyg/jajuma-develop/hyva-faq-widget-extension-for-hyva-themes/Hyva-FAQ-Widget-for-Magento-2-with-Hyva-Theme.jpg">
 
 ## Features
 
@@ -84,7 +86,7 @@ Other versions are assumed to work.
 
 The code is licensed under the [MIT License (MIT)](https://github.com/JaJuMa-GmbH/hyva-faq-widget/blob/master/LICENSE)
 
-## Other [Magento 2 Extensions](ttps://www.jajuma.de/en/jajuma-develop/magento-extensions) by [JaJuMa](https://www.jajuma.de/)
+## Other [Magento 2](https://www.jajuma.de/en/jajuma-develop/magento-extensions) & [Hyvä Themes Extensions](https://www.jajuma.de/en/jajuma-develop/hyva-extensions) by [JaJuMa](https://www.jajuma.de/)
 
 * :framed_picture: Performance & UX:<br>[Ultimate Image Optimizer for Magento 2](https://www.jajuma.de/en/jajuma-develop/magento-extensions/ultimate-image-optimizer-extension-for-magento-2)<br>
   AVIF & WebP Images, Lazy Loading, High-Resolution / Retina images
