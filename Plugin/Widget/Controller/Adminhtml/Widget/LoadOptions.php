@@ -41,7 +41,7 @@ class LoadOptions
     public function __construct(
         ObjectManagerInterface $objectManager,
         ViewInterface $view,
-        Data $advancedWidgetHelper,
+        Data $advancedWidgetHelper
     ) {
         $this->view = $view;
         $this->objectManager = $objectManager;
