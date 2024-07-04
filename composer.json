@@ -2,7 +2,7 @@
     "name": "jajuma/hyva-faq",
     "description": "FAQ Widget for Hyvä Themes",
     "type": "magento2-module",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "license": "MIT",
     "authors": [
         {
