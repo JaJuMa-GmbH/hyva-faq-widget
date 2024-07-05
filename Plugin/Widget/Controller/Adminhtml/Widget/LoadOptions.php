@@ -72,7 +72,7 @@ class LoadOptions
                         if (isset($request['values']['conditions_encoded'])) {
                             $conditions = $this->getConditionsHelper()->decode($request['values']['conditions_encoded']);
                             $conditions = array_map(function ($condition) {
-                                $questionLists = $condition['question_lists'];
+                                $questionLists = $condition['question_lists'] ?? [];
                                 $newQuestionLists = array_map(function($item) {
                                     if ($this->advancedWidgetHelper->isBase64($item['question_answer'])){
                                         $item['question_answer'] = base64_decode($item['question_answer']);
