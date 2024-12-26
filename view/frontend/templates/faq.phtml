@@ -53,6 +53,7 @@ if ($isShowQuestionOnMobile) {
 } else {
     $mobileHeaderStyle = 'block';
 }
+$nonce = $block->getNonce();
 ?>
 
 <?php if ($isEnabled && count($questionGroups)): ?>
@@ -64,7 +65,7 @@ if ($isShowQuestionOnMobile) {
         <?php foreach ($icons as $icon): ?>
             <?php $name = $icon['name']; ?>
             .accordion-item-header-<?= $escaper->escapeHtml($identifyNumber) ?><?= $escaper->escapeHtml($icon['class']) ?> .<?= $escaper->escapeHtml($typeIcons) ?>::after {
-                content: url(data:image/svg+xml;base64,<?= base64_encode($heroicons->$name("w-6 h-6", 25, 25)) ?>);
+                content: url(data:image/svg+xml;base64,<?= (string) base64_encode($heroicons->$name("w-6 h-6", 25, 25)) ?>);
             }
         <?php endforeach; ?>
 
@@ -81,17 +82,19 @@ if ($isShowQuestionOnMobile) {
     </style>
 
     <?php foreach ($questionGroups as $groupId => $questionGroup): ?>
-        <div class="accordion-widget accordion-item mb-5 border" id="question-groups-<?= $escaper->escapeHtml($groupId) ?>">
-            <div class="accordion-item-header-<?= $escaper->escapeHtml($identifyNumber) ?> cursor-pointer px-8 py-4 pr-16 font-bold relative <?= $escaper->escapeHtml($mobileHeaderStyle.' '.$desktopHeaderStyle) ?>" data-index="<?= $escaper->escapeHtml($questionIndex);?>">
+        <?php $groupKey = ''; ?>
+        <?php if (!empty($questionGroup['group_key'])) { $groupId = $groupKey = $questionGroup['group_key']; } ?>
+        <div class="accordion-widget accordion-item mb-5 border" id="<?= $escaper->escapeHtml($groupId) ?>" data-group-key="<?= $escaper->escapeHtml($groupKey) ?>">
+            <div class="accordion-item-header-<?= $escaper->escapeHtml($identifyNumber) ?> cursor-pointer px-8 py-4 pr-16 font-bold relative <?= $escaper->escapeHtml($mobileHeaderStyle.' '.$desktopHeaderStyle) ?> " data-index="<?= $escaper->escapeHtml($questionIndex);?>">
                 <strong><?= $escaper->escapeHtml(__($questionGroup['group_name'])) ?></strong>
                 <span class="icon transition-all duration-300 transform absolute right-8 top-4 <?= $escaper->escapeHtml($typeIcons) ?>">
                 </span>
             </div>
-            <div class="accordion-item-body overflow-hidden" style="background: #f5f4f1;" id="content-group-<?= $escaper->escapeHtml($groupId) ?>">
+            <div class="accordion-item-body group-content overflow-hidden" style="background: #f5f4f1;" id="content-group-<?= $escaper->escapeHtml($groupId) ?>">
                 <div class="accordion-item-body-content p-4 pb-0 overflow-hidden">
                     <?php foreach ($questionGroup['question_lists'] as $questionId => $question): ?>
                         <div class="accordion-widget-content accordion-item mb-4" id="question-detail-<?= $escaper->escapeHtml($questionId) ?>">
-                            <div class="accordion-item-header-<?= $identifyNumber ?> cursor-pointer p-4 pr-11 font-bold relative bg-white accordion-item-header-question" data-index="<?= $escaper->escapeHtml($questionIndex);?>">
+                            <div class="accordion-item-header-<?= $escaper->escapeHtml($identifyNumber) ?> cursor-pointer p-4 pr-11 font-bold relative bg-white accordion-item-header-question" data-index="<?= $escaper->escapeHtml($questionIndex);?>">
                                 <span><?= $escaper->escapeHtml(__($question['question_title'])) ?></span>
                                 <span class="icon transition-all duration-300 transform absolute right-4 top-4 <?= $escaper->escapeHtml($typeIcons) ?>">
                                 </span>
@@ -120,7 +123,18 @@ if ($isShowQuestionOnMobile) {
         <?php $questionIndex++;
     endforeach; ?>
 
-    <script>
+    <script <?= $escaper->escapeHtml($nonce ? 'nonce="' . $nonce . '"' : '') ?>>
+        var faqGroupElms = document.querySelectorAll('.accordion-widget');
+        for (let i = 0; i < faqGroupElms.length; i++) {
+            let currentFaqGroupElm = faqGroupElms[i];
+            let currentCount = i + 1;
+            if (currentFaqGroupElm.getAttribute('data-group-key') === '') {
+                let childContentElm = currentFaqGroupElm.querySelector('.group-content');
+                childContentElm.setAttribute('id', 'content-group-' + currentCount);
+                currentFaqGroupElm.setAttribute('id', currentCount);
+            }
+        }
+
         /* plain JS slideToggle https://github.com/ericbutler555/plain-js-slidetoggle */
         HTMLElement.prototype.slideToggle = function(duration, callback) {
             if (this.clientHeight === 0) {
@@ -195,12 +209,12 @@ if ($isShowQuestionOnMobile) {
         }
 
         window.addEventListener('init-external-scripts', () => {
-            document.querySelectorAll(".accordion-item-header-<?= $identifyNumber ?>").forEach(accordionItemHeader => {
+            document.querySelectorAll(".accordion-item-header-<?= $escaper->escapeHtml($identifyNumber) ?>").forEach(accordionItemHeader => {
                 if(!accordionItemHeader.classList.contains("accordion-item-header-question")) {
                     if  (window.innerWidth < 768) {
                         <?php if ($isShowQuestionOnMobile): ?>
                         accordionItemHeader.classList.add("active");
-                        <?php if ($openCloseIcons == 1):?>
+                            <?php if ($openCloseIcons == 1):?>
                         var icon = accordionItemHeader.querySelector('.icon');
                         icon.classList.toggle('rotate-180');
                         <?php endif;?>
@@ -208,7 +222,7 @@ if ($isShowQuestionOnMobile) {
                     } else {
                         <?php if ($isShowQuestionOnDesktop): ?>
                         accordionItemHeader.classList.add("active");
-                        <?php if ($openCloseIcons == 1):?>
+                            <?php if ($openCloseIcons == 1):?>
                         var icon = accordionItemHeader.querySelector('.icon');
                         icon.classList.toggle('rotate-180');
                         <?php endif;?>
@@ -220,7 +234,7 @@ if ($isShowQuestionOnMobile) {
                     var headerQuestionIndex = accordionItemHeader.getAttribute('data-index');
                     <?php if ($keepOnlyOneQuestionOpen):?>
                     if(accordionItemHeader.classList.contains("accordion-item-header-question")) {
-                        document.querySelectorAll(".accordion-widget-content .accordion-item-header-<?= $identifyNumber ?>").forEach(item => {
+                        document.querySelectorAll(".accordion-widget-content .accordion-item-header-<?= $escaper->escapeHtml($identifyNumber) ?>").forEach(item => {
                             if(item.getAttribute('data-index') != headerQuestionIndex){
                                 item.classList.remove('active');
                                 var icon = item.querySelector('.icon');
@@ -251,7 +265,8 @@ if ($isShowQuestionOnMobile) {
             {
               "@context": "https://schema.org",
               "@type": "FAQPage",
-              "mainEntity": [<?= implode(',', $jsonLdArray); ?>]
+              "@id": "<?= $escaper->escapeUrl($block->getRequest()->getRequestUri()) ?>",
+              "mainEntity": [<?= (string) implode(',', $jsonLdArray); ?>]
             }
             </script>
     <?php endif;

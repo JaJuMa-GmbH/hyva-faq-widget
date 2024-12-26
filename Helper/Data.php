@@ -76,12 +76,43 @@ class Data extends AbstractHelper
         return $values;
     }
 
-    public function isBase64($name){
-        $encoding_type = mb_detect_encoding(base64_decode($name));
-        if($encoding_type == "ASCII" || $encoding_type == "UTF-8"){
-            return true;
-        }else{
+    /**
+     * Check if a string is valid Base64 encoded
+     *
+     * @param string $string
+     * @return bool
+     */
+    public function isBase64($string): bool
+    {
+        if ($string === '' || !is_string($string)) {
             return false;
         }
+
+        // Optimization: only handle whitespace if present
+        if (strpbrk($string, " \t\r\n") !== false) {
+            $string = preg_replace('/\s/', '', $string);
+            if ($string === '') {
+                return false;
+            }
+        }
+
+        // Length must be a multiple of 4
+        if (strlen($string) % 4 !== 0) {
+            return false;
+        }
+
+        // Accurate regex for standard Base64 format
+        if (!preg_match('/^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/', $string)) {
+            return false;
+        }
+
+        // Strict decode
+        $decoded = base64_decode($string, true);
+        if ($decoded === false) {
+            return false;
+        }
+
+        // Compare with rtrim - safe and accurate
+        return rtrim(base64_encode($decoded), '=') === rtrim($string, '=');
     }
 }

@@ -62,6 +62,10 @@ if (count($contentValues)) {
             '</div>'+
             '<div class="fieldset-wrapper-content" style="padding:20px">' +
             '<div class="question item-group-container-<%- data.id %>" id="question_<%- data.id %>" data-question-id="<%- data.id %>">' +
+            '<div style="margin-bottom: 10px;">' +
+                '<label for="parameters[conditions][<%- data.id %>][group_key]" style="display: inline-block; padding: 0px 10px;">Group Key</label>' +
+                '<input name="parameters[conditions][<%- data.id %>][group_key]" value="<%- data.group_key %>" id="parameters[conditions][<%- data.id %>][group_key]" type="text" class="admin__control-text" style="margin-right: 10px; width: 45%;" />' +
+            '</div>' +
             '<table class="data-table data-grid">' +
             '<thead>' +
             '<tr>' +
@@ -77,7 +81,7 @@ if (count($contentValues)) {
             '<tr>' +
             '<td colspan="3">' +
             '<div class="actions">' +
-            '<button data-group-id="<%- data.id %>" type="button" class="action-default scalable action-add" onclick="JajumaWidgetFAQInstance.addQuestion({}, <%- data.id %>)">' +
+            '<button data-group-id="<%- data.id %>" type="button" class="action-default scalable action-add" onclick="JajumaWidgetFAQInstance.addQuestion({}, \'<%- data.id %>\')">' +
             '<span>Add New Question</span>' +
             '</button>' +
             '</div>'+
@@ -111,6 +115,7 @@ if (count($contentValues)) {
             questionTemplateContainerId: 'data-question',
             count: 0,
             countQuestions: 0,
+            currentTime: Date.now().toString(),
             activeItem: $H({}),
             selectedItems: {},
             nullValue: '',
@@ -118,7 +123,9 @@ if (count($contentValues)) {
             addItemGroup: function (data) {
                 var self = this;
                 if (this.itemTemplate && (itemTemplateContainer = $(this.itemTemplateContainerId))) {
-                    data.id = this.count++;
+                    let newCount = this.count;
+                    data.id = this.currentTime + '_' + newCount.toString();
+                    this.count++;
 
                     itemTemplateObj = mageTemplate(this.itemTemplate);
                     Element.insert(itemTemplateContainer, {

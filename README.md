@@ -8,7 +8,7 @@
 <br><br>
 
 [Hyvä FAQ Widget by JaJuMa](https://www.jajuma.de/en/jajuma-develop/magento-extensions/hyva-faq-widget-extension-for-hyva-themes) allows  
-adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes) easily.  
+adding and managing FAQs for [Magento 2](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2) sites using [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes) easily.  
 
 <br><br>
 
@@ -28,6 +28,22 @@ adding and managing FAQs for Magento 2 sites using [Hyvä Theme](https://www.jaj
     </tr>
     </table>
 </td>
+
+<hr>
+<div align="center">
+Find all you need to know and more valuable insights about Hyvä and Magento.<br>   
+Expertly curated by JaJuMa:<br>  
+<br>
+<a href="https://www.jajuma.de/en/hyvaverse-guide" style="float:left;">
+    <img width="350" height="auto" src="https://www.jajuma.de/media/wysiwyg/jajuma-hyvaverse/Launch-The-Hyvaverse.png">
+</a>
+<a href="https://www.jajuma.de/en/magento-metropolis-guide" style="float:right;">
+    <img width="350" height="auto" src="https://www.jajuma.de/media/wysiwyg/jajuma-magento-metropolis/Explore-The-Magento-Metropolis.png">
+</a>
+<br><br>
+Your central resources for everything Hyvä & Magento.
+</div>
+<hr>
 
 
 ## Features
@@ -69,7 +85,7 @@ It is automatically included in TailwindCSS purge config (requires Hyvä Theme v
 ## Platform
 The following versions are supported and tested:
 
-* Magento Community Edition 2.4+ & [Mage-OS](https://www.jajuma.de/en/jajuma-shop/demo-shop-with-mage-os-and-hyva-themes) with
+* [Magento 2](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2) Community Edition 2.4+ & [Mage-OS](https://www.jajuma.de/en/jajuma-shop/demo-shop-with-mage-os-and-hyva-themes) with
 * [Hyvä Theme](https://www.jajuma.de/en/jajuma-shop/online-shop-with-magento-2-and-hyva-themes)  
 
 Other versions are assumed to work.
@@ -86,7 +102,7 @@ Other versions are assumed to work.
 
 The code is licensed under the [MIT License (MIT)](https://github.com/JaJuMa-GmbH/hyva-faq-widget/blob/master/LICENSE)
 
-## Other [Magento 2](https://www.jajuma.de/en/jajuma-develop/magento-extensions) & [Hyvä Themes Extensions](https://www.jajuma.de/en/jajuma-develop/hyva-extensions) by [JaJuMa](https://www.jajuma.de/)
+## Other [Magento 2](https://www.jajuma.de/en/jajuma-develop/magento-extensions) & [Hyvä Themes Extensions](https://www.jajuma.de/en/jajuma-develop/hyva-extensions) by [JaJuMa](https://www.jajuma.de/en/jajuma)
 
 * :framed_picture: Performance & UX:<br>[Ultimate Image Optimizer for Magento 2](https://www.jajuma.de/en/jajuma-develop/magento-extensions/ultimate-image-optimizer-extension-for-magento-2)<br>
   AVIF & WebP Images, Lazy Loading, High-Resolution / Retina images
@@ -144,6 +160,12 @@ The code is licensed under the [MIT License (MIT)](https://github.com/JaJuMa-Gmb
 
 * :zap: Performance:<br>[Smart Speculations Rules](https://www.jajuma.de/en/jajuma-develop/magento-extensions/smart-speculations-rules-extension-for-magento-2)<br>
   Instant Page Navigations With Smart Data-Driven Prerendering Via Speculations Rules API
+
+* :traffic_light: Performance Monitoring:<br>[Real User Monitoring (RUM)](https://www.jajuma.de/en/jajuma-develop/magento-extensions/real-user-monitoring-rum-extension-for-magento-2)<br>
+  Magento 2 Real User Monitoring (RUM): Discover True Speed & UX Insights
+
+* :abc: Content Management:<br>[Hyvä Translation](https://www.jajuma.de/en/jajuma-develop/magento-extensions/hyva-translation-extension-for-magento-2-with-hyva-theme)<br>
+  Manage translations via Inline Translation, Backend & CSV files
 
 * :man_technologist: :free: Content Management:<br>[Syntax Highlighter 4 Page Builder](https://www.jajuma.de/en/jajuma-develop/magento-extensions/syntax-highlighter-4-page-builder-extension-for-magento-2)<br>
   Syntax Highlighting and more for Magento 2 Page Builder

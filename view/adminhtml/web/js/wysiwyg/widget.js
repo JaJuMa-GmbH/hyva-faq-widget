@@ -124,7 +124,7 @@ define([
                 return;
             }
 
-            this.dialogWindow = jQuery('<div/>').modal({
+            this.dialogWindow = jQuery(document.createElement('div')).modal({
 
                 title: jQuery.mage.__(title),
                 type: 'slide',
@@ -335,7 +335,7 @@ define([
                          * @param {String} message
                          */
                         insertMethod: function (message) {
-                            $wrapper = jQuery('<div/>').html(message);
+                            $wrapper = jQuery(document.createElement('div')).html(message);
 
                             $wrapper.insertAfter('.modal-slide .page-main-actions');
                         }
@@ -662,7 +662,7 @@ define([
          * @param {*} content
          */
         openDialogWindow: function (content) {
-            this.dialogWindow = jQuery('<div/>').modal({
+            this.dialogWindow = jQuery(document.createElement('div')).modal({
                 title: this.config.buttons.open,
                 type: 'slide',
                 buttons: [],

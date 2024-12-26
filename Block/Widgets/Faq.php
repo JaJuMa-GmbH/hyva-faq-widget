@@ -13,6 +13,8 @@ use Magento\Cms\Model\Template\FilterProvider;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
 use Magento\Widget\Helper\Conditions;
+use ReflectionException;
+use Magento\Framework\ObjectManagerInterface;
 
 class Faq extends Template implements BlockInterface
 {
@@ -42,11 +44,17 @@ class Faq extends Template implements BlockInterface
     private $conditionsHelper;
 
     /**
+     * @var ObjectManagerInterface
+     */
+    protected ObjectManagerInterface $objectManager;
+
+    /**
      * @param Template\Context $context
      * @param \Magento\Framework\Filter\Template $templateProcessor
      * @param FilterProvider $filterProvider
      * @param Data $advancedWidgetHelper
      * @param Conditions $conditionsHelper
+     * @param ObjectManagerInterface $objectManager
      * @param array $data
      */
     public function __construct(
@@ -55,6 +63,7 @@ class Faq extends Template implements BlockInterface
         FilterProvider $filterProvider,
         Data $advancedWidgetHelper,
         Conditions $conditionsHelper,
+        ObjectManagerInterface $objectManager,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -62,6 +71,7 @@ class Faq extends Template implements BlockInterface
         $this->filterProvider = $filterProvider;
         $this->advancedWidgetHelper = $advancedWidgetHelper;
         $this->conditionsHelper = $conditionsHelper;
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -99,8 +109,8 @@ class Faq extends Template implements BlockInterface
         $conditionArr = $conditions ? $this->conditionsHelper->decode($conditions) : [];
         $conditionArr = array_map(function ($condition) {
             $questionLists = $condition['question_lists'];
-            $newQuestionLists = array_map(function($item) {
-                if ($this->advancedWidgetHelper->isBase64($item['question_answer'])){
+            $newQuestionLists = array_map(function ($item) {
+                if ($this->advancedWidgetHelper->isBase64($item['question_answer'])) {
                     $item['question_answer'] = base64_decode($item['question_answer']);
                 }
                 return $item;
@@ -170,5 +180,15 @@ class Faq extends Template implements BlockInterface
         }
 
         return $funcs;
+    }
+
+    public function getNonce()
+    {
+        try {
+            $cspNonceProvider = $this->objectManager->get(\Magento\Csp\Helper\CspNonceProvider::class);
+        } catch (ReflectionException $reflectionException) {
+            return '';
+        }
+        return $cspNonceProvider->generateNonce();
     }
 }
